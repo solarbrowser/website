@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Browser Blog | Latest News and Updates</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Blog specific styles */
+        .blog-header {
+            padding: 15rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--darker);
+            text-align: center;
+        }
+        
+        .blog-header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .blog-header h1 {
+            position: relative;
+            z-index: 2;
+            font-size: 4.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+        
+        .blog-header p {
+            position: relative;
+            z-index: 2;
+            font-size: 1.8rem;
+            max-width: 60rem;
+            margin: 0 auto;
+            color: var(--light);
+        }
+        
+        .blog-header .space-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .blog-container {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+            margin-top: -6rem;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr 35rem;
+            gap: 4rem;
+            margin: 8rem 0 5rem;
+        }
+        
+        .blog-main {
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+        
+        .blog-post {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 4rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+            background-color: rgba(255, 255, 255, 0.02);
+            border-color: var(--primary);
+        }
+        
+        .blog-post-header {
+            margin-bottom: 2rem;
+        }
+        
+        .blog-post-meta {
+            display: flex !important;
+            gap: 2rem;
+            color: var(--gray);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            /* Always visible */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            position: static !important;
+        }
+        
+        .blog-post-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            /* Always visible */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            position: static !important;
+        }
+        
+        .blog-post-image {
+            width: 100%;
+            height: 25rem;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .post-content {
+            width: 100%;
+        }
+        
+        .post-content p {
+            font-size: 1.8rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+        
+        .blog-post-excerpt {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .blog-post-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post-link:hover {
+            transform: translateX(5px);
+        }
+        
+        .blog-sidebar {
+            position: sticky;
+            top: 12rem;
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sidebar-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .sidebar-topics a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .sidebar-topics a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-topics a::before {
+            content: "";
+            display: inline-block;
+            width: 0.6rem;
+            height: 0.6rem;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .recent-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .recent-post {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .recent-post-image {
+            width: 8rem;
+            height: 6rem;
+            border-radius: 0.8rem;
+            object-fit: cover;
+        }
+        
+        .recent-post-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recent-post-date {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            /* Always visible */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        
+        .recent-post-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.4;
+            /* Always visible */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        
+        .recent-post-link {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .recent-post-link:hover {
+            color: var(--primary);
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .tag {
+            background-color: rgba(255, 184, 48, 0.1);
+            border-radius: 2rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .tag:hover {
+            background-color: rgba(255, 184, 48, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-sidebar {
+                position: static;
+                margin-top: 5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-post-title {
+                font-size: 2.4rem;
+            }
+            
+            .blog-post-image {
+                height: 20rem;
+            }
+        }
+        
+        /* Ensure visibility of important elements */
+        .blog-post-meta,
+        .blog-post-title,
+        .blog-post-header,
+        .blog-post-excerpt,
+        .blog-post-link,
+        .recent-post-date,
+        .recent-post-title,
+        .recent-post-content * {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            position: static !important;
+            transform: none !important;
+        }
+        
+        /* Remove any hover-only display effects */
+        .blog-post:hover .blog-post-meta,
+        .blog-post:hover .blog-post-title,
+        .blog-post:hover .blog-post-excerpt,
+        .blog-post:hover .blog-post-link,
+        .recent-post:hover .recent-post-date,
+        .recent-post:hover .recent-post-title {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* Force all blog elements to be visible */
+        .blog-post *,
+        .recent-post * {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* Stars animation */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        #stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: twinkle 5s infinite;
+            animation-delay: calc(var(--delay) * 1s);
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: var(--start-opacity); transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: var(--start-opacity); transform: scale(1); }
+        }
+        
+        /* Comet animation */
+        .comet {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            transform-origin: center;
+        }
+        
+        .comet-head {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            z-index: 1;
+        }
+        
+        .post-meta {
+            font-size: 1.6rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .post-content h2 {
+            font-size: 3.2rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.2;
+        }
+        
+        .post-image {
+            width: 100%;
+            margin-bottom: 2.5rem;
+        }
+        
+        .post-image img {
+            width: 100%;
+            border-radius: 1rem;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="img/solar-logo.svg" alt="Solar Browser">
+                        <span>Solar</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#about">About</a>
+                    <a href="blog.html" class="active">Blog</a>
+                    <a href="sponsors.html">Sponsors</a>
+                    <a href="index.html#download">Download</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="stars-container">
+        <div id="stars"></div>
+    </div>
+
+    <main>
+        <section class="blog-header">
+            <div class="space-background"></div>
+            <div class="container">
+                <h1>Solar Browser Blog</h1>
+                <p>Stay updated with our latest developments and announcements</p>
+            </div>
+        </section>
+        
+        <div class="blog-container">
+            <div class="blog-grid">
+                <div class="blog-main">
+                    <div class="blog-posts">
+                        <article class="blog-post">
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="post-date">April 4, 2025</span>
+                                    <span class="post-author">By Ata Türkçü</span>
+                                </div>
+                                <h2>Introducing Solar Browser: A New Dawn in Web Browsing</h2>
+                                <div class="post-image">
+                                    <img src="img/browser-interface.svg" alt="Solar Browser Interface">
+                                </div>
+                                <p>Today, we're thrilled to introduce Solar Browser to the world - a revolutionary web browser built from scratch by a team of passionate high school students from Türkiye.</p>
+                                
+                                <p>Unlike other browsers that build upon existing engines, we're creating everything ourselves - from the rendering engine to the JavaScript interpreter. Solar Browser represents our vision for what the internet experience should be: fast, secure, and truly privacy-focused.</p>
+                                
+                                <p>We've already begun development of our custom JavaScript engine, starting earlier than our original Q3 2025 timeline. We're excited about our initial progress and can't wait to share more with you.</p>
+                                
+                                <a href="blog/introducing-solar.html" class="btn btn-primary">Read More</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                
+                <aside class="blog-sidebar">
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Topics</h3>
+                        <div class="sidebar-topics">
+                            <a href="#">Privacy & Security</a>
+                            <a href="#">Performance</a>
+                            <a href="#">Customization</a>
+                            <a href="#">Extensions</a>
+                            <a href="#">Tips & Tricks</a>
+                            <a href="#">Updates & Releases</a>
+                            <a href="#">Community</a>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Recent Posts</h3>
+                        <div class="recent-posts">
+                            <div class="recent-post">
+                                <img src="img/browser-interface.svg" alt="Solar Browser Announcement" class="recent-post-image">
+                                <div class="recent-post-content">
+                                    <span class="recent-post-date">April 4, 2025</span>
+                                    <a href="blog/introducing-solar.html" class="recent-post-link">
+                                        <h4 class="recent-post-title">Introducing Solar Browser: A New Dawn in Web Browsing</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="tag-cloud">
+                            <a href="#" class="tag">Privacy</a>
+                            <a href="#" class="tag">Security</a>
+                            <a href="#" class="tag">Performance</a>
+                            <a href="#" class="tag">Themes</a>
+                            <a href="#" class="tag">Extensions</a>
+                            <a href="#" class="tag">Updates</a>
+                            <a href="#" class="tag">Tutorials</a>
+                            <a href="#" class="tag">Tips</a>
+                            <a href="#" class="tag">Community</a>
+                            <a href="#" class="tag">Features</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="img/solar-logo.svg" alt="Solar Browser">
+                    <span>Solar</span>
+                    <p>© 2025 Vertex Corporation. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Product</h4>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#download">Download</a>
+                        <a href="#">Extensions</a>
+                        <a href="roadmap.html">Roadmap</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Company</h4>
+                        <a href="index.html#about">About</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="mailto:support@browser.solar">Contact</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Resources</h4>
+                        <a href="#">Help Center</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="terms-of-use.html">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="https://x.com/solarbrowser" target="_blank" aria-label="Twitter">
+                            <img src="img/icons/twitter.svg" alt="Twitter">
+                        </a>
+                        <a href="https://github.com/solarbrowser" target="_blank" aria-label="GitHub">
+                            <img src="img/icons/github.svg" alt="GitHub">
+                        </a>
+                        <a href="https://instagram.com/solarbrowser" target="_blank" aria-label="Instagram">
+                            <img src="img/icons/instagram.svg" alt="Instagram">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize star animations when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Create stars in the background
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size between 1 and 3 pixels
+                const size = Math.random() * 2 + 1;
+                
+                // Random opacity
+                const opacity = Math.random() * 0.8 + 0.2;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = opacity;
+                star.style.setProperty('--delay', delay);
+                star.style.setProperty('--start-opacity', opacity);
+                
+                starsContainer.appendChild(star);
+            }
+            
+            // Create comets with random directions
+            const createComets = () => {
+                const comet = document.createElement('div');
+                comet.classList.add('comet');
+                
+                // Create comet head
+                const cometHead = document.createElement('div');
+                cometHead.classList.add('comet-head');
+                
+                // Random position and size
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (window.innerHeight * 0.7); // Keep mostly in upper part
+                
+                // Random angle (direction) in radians
+                const angle = Math.random() * 2 * Math.PI;
+                
+                // Random tail length
+                const tailLength = Math.random() * 150 + 50;
+                const tailHeight = Math.random() * 4 + 2;
+                
+                // Calculate direction vector
+                const dirX = Math.cos(angle);
+                const dirY = Math.sin(angle);
+                
+                // Position and size
+                comet.style.left = `${x}px`;
+                comet.style.top = `${y}px`;
+                comet.style.width = `${tailLength}px`;
+                comet.style.height = `${tailHeight}px`;
+                
+                // Apply rotation based on angle
+                const degrees = (angle * 180 / Math.PI);
+                comet.style.transform = `rotate(${degrees}deg)`;
+                
+                // Position the comet head at the front of the tail
+                cometHead.style.left = `${dirX < 0 ? 0 : tailLength}px`;
+                cometHead.style.top = `${tailHeight / 2 - 3}px`; // Center vertically
+                
+                // Random animation duration
+                const duration = Math.random() * 8 + 6;
+                
+                // Create custom animation for this comet
+                const distance = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+                
+                // Animate the comet
+                comet.animate([
+                    { transform: `rotate(${degrees}deg) translateX(0)`, opacity: 0 },
+                    { transform: `rotate(${degrees}deg) translateX(50px)`, opacity: 1, offset: 0.1 },
+                    { transform: `rotate(${degrees}deg) translateX(${distance}px)`, opacity: 1, offset: 0.9 },
+                    { transform: `rotate(${degrees}deg) translateX(${distance + 50}px)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'linear',
+                    iterations: 1
+                });
+                
+                // Add comet to the DOM
+                comet.appendChild(cometHead);
+                document.body.appendChild(comet);
+                
+                // Remove comet after animation completes
+                setTimeout(() => {
+                    comet.remove();
+                }, duration * 1000);
+            };
+            
+            // Create comets periodically
+            createComets();
+            setInterval(createComets, 2000); // More frequent comets
+        });
+    </script>
+</body>
+</html> 

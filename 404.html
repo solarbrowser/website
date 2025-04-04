@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Solar Browser</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0C0C14;
+        }
+        
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background-color: #0C0C14;
+        }
+        
+        .error-content {
+            max-width: 60rem;
+            z-index: 2;
+            position: relative;
+            margin-top: 5rem;
+        }
+        
+        .error-code {
+            font-size: 12rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .error-title {
+            font-size: 3.6rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        
+        .error-text {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: #ccc;
+        }
+        
+        .space-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-color: #0C0C14;
+            background: radial-gradient(ellipse at center, 
+                rgba(20, 20, 35, 1) 0%, 
+                rgba(13, 13, 25, 1) 50%, 
+                rgba(5, 5, 15, 1) 100%);
+            overflow: hidden;
+        }
+        
+        .galaxy {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110vmin;
+            height: 50vmin;
+            z-index: 1;
+            animation: rotate 300s linear infinite;
+            overflow: visible;
+            perspective: 1000px;
+        }
+        
+        .galaxy-outer-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(25deg);
+            width: 90%;
+            height: 90%;
+            border: 1px solid rgba(255, 184, 48, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 184, 48, 0.1);
+        }
+        
+        .galaxy-middle-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(25deg);
+            width: 70%;
+            height: 70%;
+            border: 1px solid rgba(255, 184, 48, 0.15);
+            border-radius: 50%;
+        }
+        
+        .galaxy-inner-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(25deg);
+            width: 50%;
+            height: 50%;
+            border: 1px solid rgba(255, 184, 48, 0.1);
+            border-radius: 50%;
+        }
+        
+        .galaxy-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(25deg);
+            width: 35%;
+            height: 35%;
+            background: radial-gradient(ellipse at center, rgba(255, 235, 180, 0.5) 0%, rgba(255, 216, 135, 0.3) 40%, rgba(31, 31, 47, 0) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 216, 135, 0.4);
+            filter: blur(5px);
+        }
+        
+        .galaxy-arm {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            width: 45%;
+            height: 10rem;
+            background: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .galaxy-arm:nth-child(1) {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        
+        .galaxy-arm:nth-child(2) {
+            transform: translate(-50%, -50%) rotate(72deg);
+        }
+        
+        .galaxy-arm:nth-child(3) {
+            transform: translate(-50%, -50%) rotate(144deg);
+        }
+        
+        .galaxy-arm:nth-child(4) {
+            transform: translate(-50%, -50%) rotate(216deg);
+        }
+        
+        .galaxy-arm:nth-child(5) {
+            transform: translate(-50%, -50%) rotate(288deg);
+        }
+        
+        .galaxy-dust {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(ellipse at center, 
+                rgba(255, 216, 135, 0.4) 0%, 
+                rgba(255, 184, 48, 0.2) 30%, 
+                rgba(19, 19, 31, 0) 70%);
+            mix-blend-mode: screen;
+            opacity: 0.7;
+            transform: rotateX(75deg) rotateZ(25deg);
+            filter: blur(10px);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 2.4rem;
+            border-radius: 5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.6rem;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #FFB830, #FF8A00);
+            color: #13131F;
+            box-shadow: 0 5px 15px rgba(255, 184, 48, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 184, 48, 0.4);
+        }
+        
+        .back-link {
+            margin-top: 2rem;
+            color: rgba(255, 184, 48, 0.7);
+            text-decoration: none;
+            font-size: 1.4rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: rgba(255, 184, 48, 1);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotateZ(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotateZ(360deg);
+            }
+        }
+        
+        @keyframes counter-rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 30px rgba(255, 184, 48, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(255, 184, 48, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 184, 48, 0.2);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .galaxy {
+                width: 100vmin;
+                height: 45vmin;
+            }
+            
+            .error-code {
+                font-size: 8rem;
+            }
+            
+            .error-title {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="error-container">
+            <div class="space-background">
+                <div class="galaxy">
+                    <div class="galaxy-outer-ring"></div>
+                    <div class="galaxy-middle-ring"></div>
+                    <div class="galaxy-inner-ring"></div>
+                    <div class="galaxy-core"></div>
+                    <div class="galaxy-arm"></div>
+                    <div class="galaxy-arm"></div>
+                    <div class="galaxy-arm"></div>
+                    <div class="galaxy-arm"></div>
+                    <div class="galaxy-arm"></div>
+                    <div class="galaxy-dust"></div>
+                </div>
+            </div>
+            <div class="error-content">
+                <h1 class="error-code">404</h1>
+                <h2 class="error-title">Lost in the Cosmos</h2>
+                <p class="error-text">The page you're looking for has drifted beyond our galaxy. Let's navigate back to Solar.</p>
+                <a href="index.html" class="btn btn-primary">Return to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Create dynamic stars for the 404 page
+        document.addEventListener('DOMContentLoaded', () => {
+            const errorContainer = document.querySelector('.error-container');
+            const spaceBackground = document.querySelector('.space-background');
+            const galaxy = document.querySelector('.galaxy');
+            
+            // Create background stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Use sun-like colors
+                const starColors = ['#FFF4E0', '#FFE8B8', '#FFCB7B', '#FFB830'];
+                const colorIndex = Math.floor(Math.random() * starColors.length);
+                
+                star.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    border-radius: 50%;
+                    background-color: ${starColors[colorIndex]};
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    opacity: ${Math.random() * 0.7 + 0.3};
+                    animation: twinkle ${Math.random() * 3 + 2}s infinite ${Math.random() * 5}s;
+                    z-index: 0;
+                `;
+                
+                spaceBackground.appendChild(star);
+            }
+            
+            // Create spiral galaxy stars
+            for (let i = 0; i < 250; i++) {
+                const star = document.createElement('div');
+                
+                // Calculate spiral position with more pronounced tilt
+                const angle = Math.random() * Math.PI * 2; // Random angle
+                const spiralFactor = 0.3 + Math.random() * 0.2; // How tight the spiral is
+                const distance = Math.random() * 45 + 5; // Distance from center
+                
+                // More extreme squashing for a more realistic tilted galaxy view
+                const spiralAngle = angle + spiralFactor * distance;
+                
+                // Create a more pronounced elliptical galaxy (more squashed vertically)
+                let posX = 50 + Math.cos(spiralAngle) * distance * 1.8; // More stretch on X
+                let posY = 50 + Math.sin(spiralAngle) * distance * 0.35; // More squash on Y
+                
+                // Add some random offset for natural distribution
+                posX += (Math.random() - 0.5) * 2;
+                posY += (Math.random() - 0.5) * 1;
+                
+                // Vary star size based on position - smaller at edges
+                const distFromCenter = Math.sqrt(Math.pow(posX - 50, 2) + Math.pow((posY - 50) * 1.8, 2)) / 50;
+                const sizeFactor = Math.max(0.5, 1.2 - distFromCenter);
+                const size = (Math.random() * 2 + 0.8) * sizeFactor;
+                
+                // More realistic galaxy colors with color transition
+                const starColors = ['#FFFFFF', '#F8F7FF', '#FFF4E0', '#FFEBB4', '#FFD887', '#FFCA66', '#FFA94D'];
+                const brightness = Math.random();
+                
+                // Determine color based on distance from center and position in arm
+                let colorIndex;
+                if (distance < 12) {
+                    // Core region - more orange/yellow
+                    colorIndex = Math.min(6, Math.floor(4 + brightness * 3));
+                } else if (distance < 25) {
+                    // Middle region - mix of colors
+                    colorIndex = Math.min(5, Math.floor(2 + brightness * 3));
+                } else {
+                    // Outer region - more white/blue
+                    colorIndex = Math.floor(brightness * 2);
+                }
+                
+                // Add dust lane effect by dimming stars in specific areas
+                let opacity = brightness * 0.4 + 0.6;
+                
+                // Spiral dust lanes
+                const isDustLane = (
+                    (spiralAngle % 1.2 < 0.3) && 
+                    distance > 15 && 
+                    distance < 38 && 
+                    Math.random() < 0.7
+                );
+                
+                // Dark band effect across the galaxy
+                const isDarkBand = (
+                    Math.abs(Math.sin(angle)) < 0.2 && 
+                    distance > 15 && 
+                    Math.random() < 0.6
+                );
+                
+                if (isDustLane || isDarkBand) {
+                    opacity *= 0.25; // Dim stars more significantly in dust lanes
+                }
+                
+                // More pronounced glow for brighter stars
+                const glow = size * (brightness * 1.5 + 0.5);
+                
+                star.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    border-radius: 50%;
+                    background-color: ${starColors[colorIndex]};
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    opacity: ${opacity};
+                    z-index: 2;
+                    box-shadow: 0 0 ${glow}px ${starColors[colorIndex]};
+                `;
+                
+                galaxy.appendChild(star);
+            }
+            
+            // Create additional star clusters along arms with more natural distribution
+            const addStarClusters = () => {
+                // Create spiral arms at random angles for more natural look
+                const armCount = 5;
+                const armAngles = [];
+                
+                // Create base arm angles - more natural irregular spacing
+                for (let i = 0; i < armCount; i++) {
+                    armAngles.push(40 + i * (360 / armCount) + (Math.random() * 20 - 10));
+                }
+                
+                armAngles.forEach((baseAngle, armIndex) => {
+                    // Add 4-8 clusters per arm with logarithmic spacing
+                    const clusterCount = Math.floor(Math.random() * 5) + 4;
+                    
+                    for (let c = 0; c < clusterCount; c++) {
+                        // Position cluster along the arm with logarithmic spacing
+                        const distanceFactor = Math.log(c + 2) / Math.log(clusterCount + 2);
+                        const distance = 12 + distanceFactor * 35; // Distance from center
+                        
+                        // Add wobble and spiral to arm angle
+                        const angleVariation = Math.random() * 15 - 7.5;
+                        
+                        // More pronounced spiral curve
+                        const spiralOffset = (distance / 50) * 60; // Increases with distance
+                        const clusterAngle = baseAngle + angleVariation + spiralOffset;
+                        
+                        // Adjust for perspective (squashed elliptical)
+                        const radians = clusterAngle * Math.PI / 180;
+                        const clusterX = 50 + Math.cos(radians) * distance * 1.8; // More stretch on X
+                        const clusterY = 50 + Math.sin(radians) * distance * 0.35; // More squash on Y
+                        
+                        // Skip clusters that would be outside the visible area
+                        if (clusterX < -10 || clusterX > 110 || clusterY < -10 || clusterY > 110) {
+                            continue;
+                        }
+                        
+                        // Create 6-15 stars per cluster - more stars in brighter clusters
+                        const brightness = Math.random();
+                        const starCount = Math.floor(brightness * 10) + 6;
+                        
+                        for (let s = 0; s < starCount; s++) {
+                            const star = document.createElement('div');
+                            
+                            // Distribute within elliptical area - larger clusters further out
+                            const spreadRadius = Math.random() * (3 + distance/12);
+                            const spreadAngle = Math.random() * Math.PI * 2;
+                            
+                            // Apply same elliptical transform to the cluster spread
+                            const starX = clusterX + Math.cos(spreadAngle) * spreadRadius * 1.8;
+                            const starY = clusterY + Math.sin(spreadAngle) * spreadRadius * 0.35;
+                            
+                            // Make stars in the same cluster have similar properties
+                            const size = (Math.random() * 1.5 + 1) * (0.7 + brightness * 0.6);
+                            const glow = size * (1.2 + brightness * 0.8);
+                            
+                            // Use more natural galactic color palette
+                            let hue, saturation, lightness;
+                            
+                            if (armIndex % 2 === 0) {
+                                // Yellowish arms
+                                hue = 45 - brightness * 15;
+                                saturation = 80 + brightness * 20;
+                                lightness = 70 + brightness * 30;
+                            } else {
+                                // Bluish arms for contrast
+                                hue = 210 + brightness * 30;
+                                saturation = 70 - brightness * 40;
+                                lightness = 70 + brightness * 30;
+                            }
+                            
+                            star.style.cssText = `
+                                position: absolute;
+                                width: ${size}px;
+                                height: ${size}px;
+                                border-radius: 50%;
+                                background-color: hsl(${hue}, ${saturation}%, ${lightness}%);
+                                top: ${starY}%;
+                                left: ${starX}%;
+                                opacity: ${0.7 + brightness * 0.3};
+                                z-index: 3;
+                                box-shadow: 0 0 ${glow}px rgba(${hue < 100 ? '255, 216, 135' : '200, 220, 255'}, 0.8);
+                            `;
+                            
+                            galaxy.appendChild(star);
+                        }
+                    }
+                });
+            };
+            
+            addStarClusters();
+            
+            // Add some dark matter texture for depth
+            const addDustLanes = () => {
+                const dustLanes = document.createElement('div');
+                dustLanes.classList.add('dust-lanes');
+                
+                dustLanes.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotateX(75deg) rotateZ(25deg);
+                    width: 85%;
+                    height: 85%;
+                    border-radius: 50%;
+                    background: 
+                        radial-gradient(ellipse at center, transparent 15%, rgba(0,0,0,0.4) 30%, transparent 45%),
+                        conic-gradient(
+                            rgba(0,0,0,0.3) 0deg, 
+                            transparent 30deg, 
+                            rgba(0,0,0,0.4) 60deg, 
+                            transparent 120deg, 
+                            rgba(0,0,0,0.3) 180deg, 
+                            transparent 240deg, 
+                            rgba(0,0,0,0.4) 300deg, 
+                            transparent 330deg
+                        );
+                    mix-blend-mode: multiply;
+                    opacity: 0.6;
+                    filter: blur(8px);
+                    z-index: 4;
+                    pointer-events: none;
+                `;
+                
+                galaxy.appendChild(dustLanes);
+            };
+            
+            // Add the dust lanes
+            addDustLanes();
+            
+            // Create comets only outside the galaxy
+            for (let i = 0; i < 3; i++) {
+                const comet = document.createElement('div');
+                
+                // Random position and angle (only from edges outside galaxy)
+                const startEdge = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+                let posX, posY;
+                
+                // Random angle variation
+                const baseAngle = Math.random() * 40 - 20;
+                let angle;
+                
+                // Set starting position and angle based on edge
+                switch(startEdge) {
+                    case 0: // Top edge
+                        posX = Math.random() * 100;
+                        posY = -10;
+                        angle = baseAngle + 45;
+                        break;
+                    case 1: // Right edge
+                        posX = 110;
+                        posY = Math.random() * 100;
+                        angle = baseAngle + 135;
+                        break;
+                    case 2: // Bottom edge
+                        posX = Math.random() * 100;
+                        posY = 110;
+                        angle = baseAngle + 225;
+                        break;
+                    case 3: // Left edge
+                        posX = -10;
+                        posY = Math.random() * 100;
+                        angle = baseAngle + 315;
+                        break;
+                }
+                
+                const delay = i * 8 + Math.random() * 5;
+                const duration = Math.random() * 3 + 4;
+                const length = Math.random() * 70 + 80;
+                
+                comet.style.cssText = `
+                    position: absolute;
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    width: ${length}px;
+                    height: 2px;
+                    background: linear-gradient(to right, rgba(255, 184, 48, 0), rgba(255, 184, 48, 0.8) 40%, rgba(255, 255, 255, 0.9) 60%, rgba(255, 184, 48, 0.3) 80%, rgba(255, 184, 48, 0));
+                    box-shadow: 0 0 10px rgba(255, 184, 48, 0.5);
+                    transform: rotate(${angle}deg);
+                    opacity: 0;
+                    z-index: 1;
+                `;
+                
+                spaceBackground.appendChild(comet);
+                
+                // Create animation
+                const distance = 300;
+                const radians = angle * Math.PI / 180;
+                const endX = Math.cos(radians) * distance;
+                const endY = Math.sin(radians) * distance;
+                
+                comet.animate([
+                    { 
+                        transform: `translate(0, 0) rotate(${angle}deg)`,
+                        opacity: 0
+                    },
+                    { 
+                        transform: `translate(0, 0) rotate(${angle}deg)`,
+                        opacity: 0,
+                        offset: 0.05
+                    },
+                    { 
+                        transform: `translate(0, 0) rotate(${angle}deg)`,
+                        opacity: 1,
+                        offset: 0.1
+                    },
+                    { 
+                        transform: `translate(${endX}px, ${endY}px) rotate(${angle}deg)`,
+                        opacity: 1,
+                        offset: 0.85
+                    },
+                    { 
+                        transform: `translate(${endX}px, ${endY}px) rotate(${angle}deg)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    iterations: Infinity
+                });
+            }
+            
+            // Add keyframes for twinkling if not already added
+            if (!document.querySelector('#star-animations-404')) {
+                const starAnimations = document.createElement('style');
+                starAnimations.id = 'star-animations-404';
+                starAnimations.textContent = `
+                    @keyframes twinkle {
+                        0% { opacity: 0.3; }
+                        50% { opacity: 1; }
+                        100% { opacity: 0.3; }
+                    }
+                `;
+                document.head.appendChild(starAnimations);
+            }
+        });
+    </script>
+</body>
+</html> 

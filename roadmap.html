@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Browser Roadmap | Future Development Plans</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Roadmap specific styles */
+        .roadmap-header {
+            padding: 15rem 0 0;
+            height: 25rem;
+            position: relative;
+            overflow: hidden;
+            background-color: transparent;
+        }
+        
+        .roadmap-header .space-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .roadmap-container {
+            max-width: 120rem;
+            margin: 8rem auto 5rem;
+            padding: 0 2rem;
+        }
+        
+        .roadmap-intro {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 4rem;
+            margin-bottom: 5rem;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .roadmap-intro h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+        
+        .roadmap-intro p {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            max-width: 80rem;
+            margin: 0 auto;
+            color: var(--light);
+        }
+        
+        .roadmap-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+        }
+        
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 4rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+            background-color: rgba(255, 255, 255, 0.02);
+            border-color: var(--primary);
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-quarter {
+            background-color: var(--primary);
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 2rem;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            margin-right: 2rem;
+        }
+        
+        .timeline-title {
+            font-size: 3rem;
+            margin: 0;
+        }
+        
+        .timeline-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+            gap: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .feature-status {
+            display: inline-block;
+            font-size: 1.4rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-planned {
+            background-color: rgba(255, 184, 48, 0.1);
+            color: var(--primary);
+        }
+        
+        .status-in-progress {
+            background-color: rgba(0, 120, 255, 0.1);
+            color: #0078ff;
+        }
+        
+        .status-complete {
+            background-color: rgba(0, 210, 120, 0.1);
+            color: #00d278;
+        }
+        
+        .feature-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-description {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: var(--light);
+        }
+        
+        .progress-container {
+            height: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.4rem;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 0.4rem;
+        }
+        
+        .completed-note {
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--gray);
+            margin-top: 4rem;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .timeline-quarter {
+                margin-right: 0;
+            }
+            
+            .timeline-section {
+                padding: 3rem 2rem;
+            }
+        }
+        
+        /* Stars animation */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        #stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: twinkle 5s infinite;
+            animation-delay: calc(var(--delay) * 1s);
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: var(--start-opacity); transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: var(--start-opacity); transform: scale(1); }
+        }
+        
+        /* Comet animation */
+        .comet {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            transform-origin: center;
+        }
+        
+        .comet-head {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            z-index: 1;
+        }
+        
+        .expected-outcome {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--primary);
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 0.5rem;
+        }
+        
+        .expected-outcome h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .expected-outcome p {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: var(--light-grey);
+            margin: 0;
+        }
+        
+        .roadmap-conclusion {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 4rem;
+            margin-top: 6rem;
+            text-align: center;
+        }
+        
+        .roadmap-conclusion p {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            max-width: 80rem;
+            margin: 0 auto 3rem;
+            color: var(--light);
+        }
+        
+        .roadmap-actions {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        
+        @media (max-width: 768px) {
+            .roadmap-actions {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .roadmap-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="img/solar-logo.svg" alt="Solar Browser">
+                        <span>Solar</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#about">About</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="sponsors.html">Sponsors</a>
+                    <a href="index.html#download">Download</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="stars-container">
+        <div id="stars"></div>
+    </div>
+
+    <main>
+        <section class="roadmap-header">
+            <div class="space-background"></div>
+        </section>
+        
+        <div class="roadmap-container">
+            <div class="roadmap-intro">
+                <h1>Solar Browser <span class="gradient-text">Roadmap</span></h1>
+                <p>We're building Solar Browser from the ground up - an ambitious project that will take time and dedication. Below is our development roadmap, with JavaScript engine development already underway ahead of our original Q3 2025 start date. As a team of high school students from Türkiye creating our own browser engines from scratch, we're committed to this journey of innovation.</p>
+            </div>
+            
+            <div class="roadmap-timeline">
+                <section class="timeline-section">
+                    <div class="timeline-header">
+                        <div class="timeline-quarter">Q3-Q4 2025</div>
+                        <h2 class="timeline-title">Building the Core Web Engine</h2>
+                    </div>
+                    
+                    <div class="timeline-features">
+                        <div class="feature-card">
+                            <span class="feature-status status-in-progress">In Progress</span>
+                            <h3 class="feature-title">JavaScript Engine Development</h3>
+                            <p class="feature-description">Developing our own JavaScript engine from scratch to power web page interactivity, without using existing engines like V8 or SpiderMonkey.</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 15%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">HTML and CSS Support</h3>
+                            <p class="feature-description">Adding support for rendering HTML elements and applying CSS styles by implementing DOM and CSSOM.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Basic Renderer</h3>
+                            <p class="feature-description">Writing a simple renderer without Canvas or GPU acceleration for displaying basic web pages.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">First Web Page Rendering</h3>
+                            <p class="feature-description">Milestone: Successfully rendering simple static web pages.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="expected-outcome">
+                        <h4>Expected Outcome:</h4>
+                        <p>By the end of Q4 2025, we'll have a foundational JavaScript engine capable of parsing basic scripts, and the browser should be able to render simple static HTML pages with basic CSS styling. Complex interactivity and modern website features won't be supported yet.</p>
+                    </div>
+                </section>
+                
+                <section class="timeline-section">
+                    <div class="timeline-header">
+                        <div class="timeline-quarter">Q1-Q2 2026</div>
+                        <h2 class="timeline-title">Advanced JavaScript and CSS Support</h2>
+                    </div>
+                    
+                    <div class="timeline-features">
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">JIT Compiler</h3>
+                            <p class="feature-description">Adding a Just-In-Time compiler to the JavaScript engine for faster code execution.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Complete DOM API Support</h3>
+                            <p class="feature-description">Implementing full DOM API functionality (getElementById, querySelector, etc.) for proper web page interactivity.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">CSS Layout Engine</h3>
+                            <p class="feature-description">Adding support for modern CSS features like Flexbox and Grid for proper page layouts.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Event Loop Implementation</h3>
+                            <p class="feature-description">Creating the browser's event loop to support setTimeout, setInterval, and other asynchronous operations.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Fetch API & WebSockets</h3>
+                            <p class="feature-description">Implementing modern data fetching capabilities for dynamic content loading.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="expected-outcome">
+                        <h4>Expected Outcome:</h4>
+                        <p>By the end of Q2 2026, our JavaScript engine will support most core language features, and websites with form interactions and basic AJAX functionality should work. CSS layouts will display properly, but complex animations and some advanced features will still be in development.</p>
+                    </div>
+                </section>
+                
+                <section class="timeline-section">
+                    <div class="timeline-header">
+                        <div class="timeline-quarter">Q3-Q4 2026</div>
+                        <h2 class="timeline-title">Optimization and API Completion</h2>
+                    </div>
+                    
+                    <div class="timeline-features">
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">GPU Acceleration</h3>
+                            <p class="feature-description">Adding support for WebGL and WebGPU to enable hardware acceleration for improved performance.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">CSS Animations</h3>
+                            <p class="feature-description">Implementing transitions, keyframes, and other animation capabilities for a more dynamic web experience.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">WebAssembly Support</h3>
+                            <p class="feature-description">Adding capability to run compiled code in the browser for significantly improved performance.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Advanced DOM Features</h3>
+                            <p class="feature-description">Supporting iframes, Shadow DOM, and Service Workers for modern web applications.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="expected-outcome">
+                        <h4>Expected Outcome:</h4>
+                        <p>By the end of 2026, social media sites like Twitter and Facebook should be mostly functional. Video streaming sites will load but may have performance issues. CSS animations will work, and WebGL support will enable basic interactive graphics.</p>
+                    </div>
+                </section>
+                
+                <section class="timeline-section">
+                    <div class="timeline-header">
+                        <div class="timeline-quarter">Q1-Q2 2027</div>
+                        <h2 class="timeline-title">Advancing to a Complete Engine</h2>
+                    </div>
+                    
+                    <div class="timeline-features">
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Advanced Optimizations</h3>
+                            <p class="feature-description">Implementing sophisticated performance improvements across all browser systems.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Multi-threading</h3>
+                            <p class="feature-description">Adding parallel rendering processes for significantly improved performance on multi-core systems.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Modern Web APIs</h3>
+                            <p class="feature-description">Implementing WebRTC, WebUSB, Web Bluetooth, and other cutting-edge APIs for modern web applications.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <span class="feature-status status-planned">Planned</span>
+                            <h3 class="feature-title">Advanced Security Measures</h3>
+                            <p class="feature-description">Implementing sandboxing, CORS support, MIME type handling, and other critical security features.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="expected-outcome">
+                        <h4>Expected Outcome:</h4>
+                        <p>By mid-2027, Solar Browser should be capable of handling most modern websites with good performance. Video streaming sites like YouTube should work properly, complex web applications will function, and the browser will be a viable alternative to established browsers for everyday use.</p>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="roadmap-conclusion">
+                <p>This roadmap represents our current plans, but as with any ambitious project, timelines and specific features may evolve as development progresses. We welcome community feedback and support as we work to create a truly independent browser engine.</p>
+                
+                <div class="roadmap-actions">
+                    <a href="sponsors.html" class="btn btn-primary">Support Our Development</a>
+                    <a href="blog.html" class="btn btn-secondary">Follow Our Progress</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="img/solar-logo.svg" alt="Solar Browser">
+                    <span>Solar</span>
+                    <p>© 2025 Vertex Corporation. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Product</h4>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#download">Download</a>
+                        <a href="#">Extensions</a>
+                        <a href="roadmap.html">Roadmap</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Company</h4>
+                        <a href="index.html#about">About</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="mailto:support@browser.solar">Contact</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Resources</h4>
+                        <a href="#">Help Center</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="terms-of-use.html">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="https://x.com/solarbrowser" target="_blank" aria-label="Twitter">
+                            <img src="img/icons/twitter.svg" alt="Twitter">
+                        </a>
+                        <a href="https://github.com/solarbrowser" target="_blank" aria-label="GitHub">
+                            <img src="img/icons/github.svg" alt="GitHub">
+                        </a>
+                        <a href="https://instagram.com/solarbrowser" target="_blank" aria-label="Instagram">
+                            <img src="img/icons/instagram.svg" alt="Instagram">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize star animations when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Create stars in the background
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size between 1 and 3 pixels
+                const size = Math.random() * 2 + 1;
+                
+                // Random opacity
+                const opacity = Math.random() * 0.8 + 0.2;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = opacity;
+                star.style.setProperty('--delay', delay);
+                star.style.setProperty('--start-opacity', opacity);
+                
+                starsContainer.appendChild(star);
+            }
+            
+            // Create comets with random directions
+            const createComets = () => {
+                const comet = document.createElement('div');
+                comet.classList.add('comet');
+                
+                // Create comet head
+                const cometHead = document.createElement('div');
+                cometHead.classList.add('comet-head');
+                
+                // Random position and size
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (window.innerHeight * 0.7); // Keep mostly in upper part
+                
+                // Random angle (direction) in radians
+                const angle = Math.random() * 2 * Math.PI;
+                
+                // Random tail length
+                const tailLength = Math.random() * 150 + 50;
+                const tailHeight = Math.random() * 4 + 2;
+                
+                // Calculate direction vector
+                const dirX = Math.cos(angle);
+                const dirY = Math.sin(angle);
+                
+                // Position and size
+                comet.style.left = `${x}px`;
+                comet.style.top = `${y}px`;
+                comet.style.width = `${tailLength}px`;
+                comet.style.height = `${tailHeight}px`;
+                
+                // Apply rotation based on angle
+                const degrees = (angle * 180 / Math.PI);
+                comet.style.transform = `rotate(${degrees}deg)`;
+                
+                // Position the comet head at the front of the tail
+                cometHead.style.left = `${dirX < 0 ? 0 : tailLength}px`;
+                cometHead.style.top = `${tailHeight / 2 - 3}px`; // Center vertically
+                
+                // Random animation duration
+                const duration = Math.random() * 8 + 6;
+                
+                // Create custom animation for this comet
+                const distance = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+                
+                // Animate the comet
+                comet.animate([
+                    { transform: `rotate(${degrees}deg) translateX(0)`, opacity: 0 },
+                    { transform: `rotate(${degrees}deg) translateX(50px)`, opacity: 1, offset: 0.1 },
+                    { transform: `rotate(${degrees}deg) translateX(${distance}px)`, opacity: 1, offset: 0.9 },
+                    { transform: `rotate(${degrees}deg) translateX(${distance + 50}px)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'linear',
+                    iterations: 1
+                });
+                
+                // Add comet to the DOM
+                comet.appendChild(cometHead);
+                document.body.appendChild(comet);
+                
+                // Remove comet after animation completes
+                setTimeout(() => {
+                    comet.remove();
+                }, duration * 1000);
+            };
+            
+            // Create comets periodically
+            createComets();
+            setInterval(createComets, 2000); // More frequent comets
+        });
+    </script>
+</body>
+</html> 

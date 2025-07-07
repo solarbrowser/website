@@ -1,49 +1,36 @@
-# Solar Browser Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This is the official website for the Solar Browser (browser.solar).
+## Getting Started
 
-## Overview
+First, run the development server:
 
-Solar Browser is a modern, space-themed web browser focused on speed, privacy, and customization. This repository contains the code for the browser's official website.
-
-## Features
-
-- Responsive design for both mobile and desktop devices
-- Space-themed UI with animated elements
-- Modern and clean interface
-- Optimized performance
-
-## Project Structure
-
-```
-.
-├── css/               # Stylesheets
-├── img/               # Images and assets
-│   └── icons/         # SVG icons for features and platforms
-├── js/                # JavaScript files
-├── index.html         # Main HTML file
-└── README.md          # This file
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Development
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To work on this website locally, simply clone the repository and open `index.html` in your browser. No build process is required.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Technologies Used
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- HTML5
-- CSS3 (with custom properties and flexbox/grid layouts)
-- JavaScript (vanilla)
-- SVG for illustrations and icons
+## Learn More
 
-## Browser Support
+To learn more about Next.js, take a look at the following resources:
 
-The website is designed to work on modern browsers including:
-- Chrome
-- Firefox
-- Safari
-- Edge
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## License
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-All rights reserved. 
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

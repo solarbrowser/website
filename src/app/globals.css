@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #131213;
+  --primary: #131213;
+  --secondary: #f8f9fa;
+  --accent: #e9ecef;
+  --muted: #6c757d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Grid background pattern */
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(0deg, transparent 94%, #e9ecef 94%, #e9ecef 100%),
+    linear-gradient(90deg, transparent 94%, #e9ecef 94%, #e9ecef 100%);
+  background-size: 120px 120px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: -1;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* Custom utilities for premium effects */
+@layer utilities {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .glass-dark {
+    background: rgba(19, 18, 19, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(19, 18, 19, 0.2);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #131213, #2d2d2d);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 16px;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(19,18,19,0.2), rgba(19,18,19,0.1));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+  }
+}

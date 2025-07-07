@@ -93,7 +93,7 @@ export default function SecurityPage() {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto">
-            Solar's AI-powered security system doesn't just protect – it predicts, prevents, and evolves. 
+            Solar&apos;s AI-powered security system doesn&apos;t just protect – it predicts, prevents, and evolves. 
             Experience browsing with military-grade protection that stays ahead of threats.
           </p>
         </div>
@@ -142,7 +142,7 @@ export default function SecurityPage() {
               Solar vs Traditional Browsers
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See how Solar's AI-powered security compares to conventional browser protection.
+              See how Solar&apos;s AI-powered security compares to conventional browser protection.
             </p>
           </div>
 
@@ -184,7 +184,7 @@ export default function SecurityPage() {
               Comprehensive Threat Protection
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Solar's AI security engine protects against known and unknown threats 
+              Solar&apos;s AI security engine protects against known and unknown threats 
               with intelligent detection and prevention.
             </p>
           </div>

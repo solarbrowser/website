@@ -13,7 +13,7 @@ export default function PrivacyPage() {
             <span className="text-sm font-medium text-green-600">Privacy First</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
-          <p className="text-xl text-gray-600 leading-relaxed">This Privacy Policy explains how Solar Browser ("Solar", "we", "our") handles your data when you use the application and its services.</p>
+          <p className="text-xl text-gray-600 leading-relaxed">This Privacy Policy explains how Solar Browser (&quot;Solar&quot;, &quot;we&quot;, &quot;our&quot;) handles your data when you use the application and its services.</p>
           <p className="text-sm text-gray-500 mt-6">Last updated: July 7, 2025</p>
         </div>
       </section>
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
               <li>Password Manager: Your passwords are stored on our servers encrypted using multiple layers of encryption. Only you have the master key to decrypt your passwords.</li>
             </ul>
             <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-10">3. AI Data Usage Disclaimer</h2>
-            <p>Free-tier users of Solar's AI summary feature must understand: The data you submit is sent directly to the AI provider, not to us. The provider may use this data for model training.</p>
+            <p>Free-tier users of Solar&apos;s AI summary feature must understand: The data you submit is sent directly to the AI provider, not to us. The provider may use this data for model training.</p>
             <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-10">4. Cookies and Third-Party Content</h2>
             <p>Solar does not place cookies. However, websites you visit might. We do not control or take responsibility for third-party sites and their cookies.</p>
             <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-10">5. Children and Responsibility</h2>

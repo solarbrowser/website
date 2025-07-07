@@ -18,7 +18,7 @@ export default function DevelopersPage() {
     {
       icon: Code,
       title: 'Advanced Development APIs',
-      description: 'Access Solar\'s unique capabilities with our comprehensive developer APIs.',
+      description: 'Access Solar&apos;s unique capabilities with our comprehensive developer APIs.',
       details: [
         'AI integration APIs for smart extensions',
         'Advanced theming and customization hooks',
@@ -126,7 +126,7 @@ export default class SmartExtension {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto">
-            Solar's universal extension ecosystem breaks down browser barriers. 
+            Solar&apos;s universal extension ecosystem breaks down browser barriers. 
             Write once, deploy everywhere, and access capabilities no other browser offers.
           </p>
           
@@ -166,7 +166,7 @@ export default class SmartExtension {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {ecosystemFeatures.map((feature, index) => (
+            {ecosystemFeatures.map((feature) => (
               <div key={feature.title} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6">
                   <feature.icon className="w-8 h-8 text-white" />
@@ -197,7 +197,7 @@ export default class SmartExtension {
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                 Our APIs are designed to be intuitive for beginners yet powerful enough for advanced use cases. 
-                Access Solar's AI, theming system, and unique capabilities with clean, modern JavaScript.
+                Access Solar&apos;s AI, theming system, and unique capabilities with clean, modern JavaScript.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -244,7 +244,7 @@ export default class SmartExtension {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {resources.map((resource, index) => (
+            {resources.map((resource) => (
               <a
                 key={resource.title}
                 href="https://github.com/solarbrowser"

@@ -40,8 +40,8 @@ export default function BlogPage() {
               Revolutionary Content in Development
             </h3>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              We're preparing in-depth technical articles, breakthrough announcements, and exclusive insights 
-              that match the innovation level of Solar Browser. Quality takes time, and we're ensuring 
+              We&apos;re preparing in-depth technical articles, breakthrough announcements, and exclusive insights 
+              that match the innovation level of Solar Browser. Quality takes time, and we&apos;re ensuring 
               every piece of content meets our highest standards.
             </p>
           </div>

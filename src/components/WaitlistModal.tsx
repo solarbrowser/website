@@ -144,7 +144,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                   Welcome to the Future!
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  You're now on the waitlist for Solar Browser. We'll be in touch with exclusive updates.
+                  You&apos;re now on the waitlist for Solar Browser. We&apos;ll be in touch with exclusive updates.
                 </p>
                 <div className="text-sm text-gray-500">
                   Check your email for confirmation ✨

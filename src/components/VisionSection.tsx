@@ -37,7 +37,7 @@ const VisionSection = () => {
             Our Vision Manifesto
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Why Solar exists and how we're reshaping the digital landscape.
+            Why Solar exists and how we&apos;re reshaping the digital landscape.
           </p>
         </motion.div>
 
@@ -52,7 +52,7 @@ const VisionSection = () => {
             <Quote className="w-16 h-16 text-gray-300 mb-8" />
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 leading-relaxed mb-8">
               "The internet has given us limitless information, but our tools to navigate it remain 
-              fundamentally unchanged. We believe it's time for browsing to evolve – to become as 
+              fundamentally unchanged. We believe it&apos;s time for browsing to evolve – to become as 
               intelligent and adaptive as the minds using it."
             </blockquote>
             <div className="flex items-center space-x-4">

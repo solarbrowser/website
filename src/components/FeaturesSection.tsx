@@ -28,7 +28,7 @@ const FeaturesSection = () => {
       icon: Shield,
       title: 'Proactive AI Security',
       subtitle: 'Beyond Traditional Protection',
-      description: 'Revolutionary behavioral analysis detects and blocks zero-day threats in real-time. Our AI security doesn\'t just react – it predicts and prevents.',
+      description: 'Revolutionary behavioral analysis detects and blocks zero-day threats in real-time. Our AI security doesn&apos;t just react – it predicts and prevents.',
       highlights: ['Zero-day threat detection', 'Real-time behavioral analysis', 'Proactive threat prevention'],
       gradient: 'from-green-500/20 via-emerald-500/20 to-green-600/20',
       glowColor: 'shadow-green-500/25',

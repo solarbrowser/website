@@ -104,7 +104,7 @@ export default function FeaturesPage() {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto">
-            Discover how Solar's four core innovations transform web browsing into an intelligent, 
+            Discover how Solar&apos;s four core innovations transform web browsing into an intelligent, 
             secure, and infinitely customizable experience.
           </p>
         </div>
@@ -113,8 +113,8 @@ export default function FeaturesPage() {
       {/* Core Features */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {features.map((feature, index) => (
-            <div key={feature.title} className={`mb-32 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} lg:flex lg:items-center lg:gap-16`}>
+          {features.map((feature, i) => (
+            <div key={feature.title} className={`mb-32 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''} lg:flex lg:items-center lg:gap-16`}>
               <div className="lg:w-1/2 mb-12 lg:mb-0">
                 <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-3xl mb-8`}>
                   <feature.icon className="w-10 h-10 text-white" />
@@ -165,7 +165,7 @@ export default function FeaturesPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {additionalFeatures.map((feature, index) => (
+            {additionalFeatures.map((feature) => (
               <div key={feature.title} className="bg-white rounded-2xl p-8 hover:shadow-xl transition-shadow duration-300">
                 <div className="w-16 h-16 bg-gray-900 rounded-2xl flex items-center justify-center mb-6">
                   <feature.icon className="w-8 h-8 text-white" />
@@ -185,7 +185,7 @@ export default function FeaturesPage() {
             Mobile Development
           </h3>
           <p className="text-gray-300 leading-relaxed">
-            Some advanced features mentioned will be introduced in a more focused format in Solar's initial mobile version. 
+            Some advanced features mentioned will be introduced in a more focused format in Solar&apos;s initial mobile version. 
             Full feature parity is targeted for subsequent updates as we optimize the mobile experience.
           </p>
         </div>

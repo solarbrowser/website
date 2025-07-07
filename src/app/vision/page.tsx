@@ -7,7 +7,7 @@ export default function VisionPage() {
     {
       icon: Lightbulb,
       title: 'Intelligence First',
-      description: 'Every interaction should learn from you, anticipate your needs, and continuously improve your digital experience. AI isn\'t an add-on – it\'s the foundation.',
+      description: 'Every interaction should learn from you, anticipate your needs, and continuously improve your digital experience. AI isn&apos;t an add-on – it&apos;s the foundation.',
       quote: 'Technology should adapt to humans, not the other way around.'
     },
     {
@@ -20,12 +20,12 @@ export default function VisionPage() {
       icon: Globe,
       title: 'Universal Compatibility',
       description: 'Breaking down the walls between browser ecosystems. One platform, endless possibilities. No more choosing between browsers for features.',
-      quote: 'Innovation shouldn\'t be locked behind platform walls.'
+      quote: 'Innovation shouldn&apos;t be locked behind platform walls.'
     },
     {
       icon: Users,
       title: 'Infinite Adaptability',
-      description: 'Your browser should be as unique as you are. Complete customization without limitation. Every user\'s workflow deserves respect.',
+      description: 'Your browser should be as unique as you are. Complete customization without limitation. Every user&apos;s workflow deserves respect.',
       quote: 'One size fits none. Customization is liberation.'
     }
   ];
@@ -54,12 +54,12 @@ export default function VisionPage() {
     {
       year: '2025 Oct',
       title: 'Visual Engine Complete',
-      description: "Planned milestone: HTML parser, CSS parser, and layout engine for Solar's visual rendering are completed. Next: JavaScript engine development begins."
+      description: "Planned milestone: HTML parser, CSS parser, and layout engine for Solar&apos;s visual rendering are completed. Next: JavaScript engine development begins."
     },
     {
       year: '2027 Jan',
       title: 'Solar Full Release Beta',
-      description: "Planned: Solar Browser's full version beta will be launched to the public, marking a new era in browsing. (from the future)"
+      description: "Planned: Solar Browser&apos;s full version beta will be launched to the public, marking a new era in browsing. (from the future)"
     },
     {
       year: '2027 Feb',
@@ -95,8 +95,8 @@ export default function VisionPage() {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto">
-            Why Solar exists and how we're reshaping the digital landscape. 
-            This is more than technology – it's a philosophy for the future of human-computer interaction.
+            Why Solar exists and how we&apos;re reshaping the digital landscape. 
+            This is more than technology – it&apos;s a philosophy for the future of human-computer interaction.
           </p>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function VisionPage() {
               <Quote className="w-16 h-16 text-gray-300 mb-8" />
               <blockquote className="text-3xl md:text-4xl font-medium text-gray-900 leading-relaxed mb-8">
                 "The internet has given us limitless information, but our tools to navigate it remain 
-                fundamentally unchanged. We believe it's time for browsing to evolve – to become as 
+                fundamentally unchanged. We believe it&apos;s time for browsing to evolve – to become as 
                 intelligent and adaptive as the minds using it."
               </blockquote>
               <div className="flex items-center space-x-4">

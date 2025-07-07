@@ -37,9 +37,9 @@ export default function PrivacyPage() {
             <h3 className="text-xl font-semibold mt-6 mb-2">2.3 Server Usage and Synchronization:</h3>
             <ul>
               <li>Mobile: Firebase is used to deliver news or updates to the app. No data is sent back from your device.</li>
-              <li>Desktop and multi-device sync is optional. When syncing your browsing data (tabs, history, etc.), an encrypted request including your device name (e.g., "Desktop-Solar") is sent to our servers. We cannot access this data in plaintext.</li>
+              <li>Desktop and multi-device sync is optional. When syncing your browsing data (tabs, history, etc.), an encrypted request including your device name (e.g., &quot;Desktop-Solar&quot;) is sent to our servers. We cannot access this data in plaintext.</li>
               <li>Encrypted sync data is shared only between your devices under the same account as per your sync settings.</li>
-              <li>If only one device is syncing, this data remains on the server for a period you specify (for example, “keep my history for 1 week”).</li>
+              <li>If only one device is syncing, this data remains on the server for a period you specify (for example, &quot;keep my history for 1 week&quot;).</li>
               <li>When you delete your account, all data associated with your main account ID, including sync data, is permanently deleted from our servers.</li>
               <li>Password Manager: Your passwords are stored on our servers encrypted using multiple layers of encryption. Only you have the master key to decrypt your passwords.</li>
             </ul>

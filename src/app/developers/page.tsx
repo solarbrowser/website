@@ -161,7 +161,7 @@ export default class SmartExtension {
               Universal Extension Ecosystem
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Build extensions that work across all major browsers while accessing Solar's unique AI and customization capabilities.
+              Build extensions that work across all major browsers while accessing Solar&apos;s unique AI and customization capabilities.
             </p>
           </div>
 

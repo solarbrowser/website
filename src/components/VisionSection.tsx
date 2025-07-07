@@ -51,9 +51,9 @@ const VisionSection = () => {
           >
             <Quote className="w-16 h-16 text-gray-300 mb-8" />
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 leading-relaxed mb-8">
-              "The internet has given us limitless information, but our tools to navigate it remain 
-              fundamentally unchanged. We believe it&apos;s time for browsing to evolve – to become as 
-              intelligent and adaptive as the minds using it."
+              &quot;The internet has given us limitless information, but our tools to navigate it remain 
+              fundamentally unchanged. We believe it&apos;s time for browsing to evolve &ndash; to become as 
+              intelligent and adaptive as the minds using it.&quot;
             </blockquote>
             <div className="flex items-center space-x-4">
               <img

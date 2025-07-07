@@ -155,7 +155,7 @@ const HeroSection = () => {
           Experience web browsing reimagined with AI that learns, protects, and adapts to you.
           <br />
           <span className="font-semibold text-gray-700">
-            Solar isn't just a browser – it's your intelligent gateway to the infinite web.
+            Solar isn&apos;t just a browser &ndash; it&apos;s your intelligent gateway to the infinite web.
           </span>
         </motion.p>
         <motion.p

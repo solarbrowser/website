@@ -2,16 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Brain, Shield, Puzzle, Palette, Sparkles } from 'lucide-react';
 
 import Link from 'next/link';
-import WaitlistModal from './WaitlistModal';
+// import WaitlistModal from './WaitlistModal';
 
 const FeaturesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [showWaitlistModal, setShowWaitlistModal] = useState(false);
+  // const [showWaitlistModal, setShowWaitlistModal] = useState(false);
 
   const features = [
     {

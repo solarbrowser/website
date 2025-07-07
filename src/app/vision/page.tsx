@@ -96,7 +96,7 @@ export default function VisionPage() {
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto">
             Why Solar exists and how we&apos;re reshaping the digital landscape. 
-            This is more than technology – it&apos;s a philosophy for the future of human-computer interaction.
+            This is more than technology &ndash; it&apos;s a philosophy for the future of human-computer interaction.
           </p>
         </div>
       </section>
@@ -108,9 +108,9 @@ export default function VisionPage() {
             <div className="lg:w-1/2 mb-12 lg:mb-0">
               <Quote className="w-16 h-16 text-gray-300 mb-8" />
               <blockquote className="text-3xl md:text-4xl font-medium text-gray-900 leading-relaxed mb-8">
-                "The internet has given us limitless information, but our tools to navigate it remain 
-                fundamentally unchanged. We believe it&apos;s time for browsing to evolve – to become as 
-                intelligent and adaptive as the minds using it."
+                &quot;The internet has given us limitless information, but our tools to navigate it remain 
+                fundamentally unchanged. We believe it&apos;s time for browsing to evolve  to become as 
+                intelligent and adaptive as the minds using it.&quot;
               </blockquote>
               <div className="flex items-center space-x-4">
                 <img
@@ -151,7 +151,7 @@ export default function VisionPage() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {principles.map((principle, index) => (
+            {principles.map((principle) => (
               <div key={principle.title} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6">
                   <principle.icon className="w-8 h-8 text-white" />
@@ -159,7 +159,7 @@ export default function VisionPage() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{principle.title}</h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">{principle.description}</p>
                 <blockquote className="text-gray-800 font-medium italic border-l-4 border-blue-500 pl-4">
-                  "{principle.quote}"
+                  &quot;{principle.quote}&quot;
                 </blockquote>
               </div>
             ))}
@@ -184,10 +184,10 @@ export default function VisionPage() {
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200 hidden lg:block"></div>
             
             <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <div key={item.year} className={`lg:flex lg:items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+              {timeline.map((item, i) => (
+                <div key={item.year} className={`lg:flex lg:items-center ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
                   <div className="lg:w-1/2 lg:px-8">
-                    <div className={`bg-white rounded-2xl p-8 shadow-sm border border-gray-100 ${index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'}`}>
+                    <div className={`bg-white rounded-2xl p-8 shadow-sm border border-gray-100 ${i % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'}`}>
                       <div className="text-3xl font-bold text-blue-600 mb-2">{item.year}</div>
                       <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
                       <p className="text-gray-600 leading-relaxed">{item.description}</p>
@@ -218,7 +218,7 @@ export default function VisionPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-5xl md:text-6xl font-bold text-white mb-4">{stat.number}</div>
                 <div className="text-xl font-semibold text-gray-300 mb-4">{stat.label}</div>
@@ -233,7 +233,7 @@ export default function VisionPage() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-            The Future We're Building
+            The Future We&apos;re Building
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
             Solar is just the beginning. We envision a world where technology truly serves humanity, 

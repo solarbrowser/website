@@ -113,7 +113,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {securityFeatures.map((feature, index) => (
+            {securityFeatures.map((feature) => (
               <div key={feature.title} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6">
                   <feature.icon className="w-8 h-8 text-white" />
@@ -157,7 +157,7 @@ export default function SecurityPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((item, index) => (
+                  {comparisonData.map((item) => (
                     <tr key={item.feature} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-4 px-6 font-medium text-gray-900">{item.feature}</td>
                       <td className="py-4 px-6 text-center text-gray-600">{item.traditional}</td>
@@ -190,7 +190,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {threats.map((threat, index) => (
+            {threats.map((threat) => (
               <div key={threat.name} className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-6 border border-red-100">
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -211,7 +211,7 @@ export default function SecurityPage() {
       <section className="py-24 bg-gradient-to-br from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-            Security in Solar's DNA
+            Security in Solar&apos;s DNA
           </h2>
           <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
             Unlike traditional browsers where security is an add-on, Solar is built from the ground up 

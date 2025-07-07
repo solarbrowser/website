@@ -25,7 +25,7 @@ const desktopContent = (
             </ul>
           </li>
           <li>
-            <span className="font-semibold">Data We Temporarily Process:</span>
+            <span className="font-semibold">Data We May Temporarily Process:</span>
             <ul className="ml-4 list-[circle]">
               <li>Crash reports: Anonymized and used to improve software stability.</li>
               <li>AI summary requests:

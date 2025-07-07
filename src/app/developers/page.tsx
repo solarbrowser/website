@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Code, Puzzle, Book, Zap, Users, Download, Github, ArrowRight } from 'lucide-react';
+import { Code, Puzzle, Book, Zap, Users, Download, Github } from 'lucide-react';
 
 export default function DevelopersPage() {
   const ecosystemFeatures = [
@@ -138,7 +138,7 @@ export default class SmartExtension {
               className="bg-gray-900 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 inline-flex items-center space-x-2"
             >
               <span>Get Started</span>
-              <ArrowRight className="w-4 h-4" />
+              {/* Removed ArrowRight icon (unused) */}
             </a>
             <a
               href="https://github.com/solarbrowser"
@@ -259,7 +259,7 @@ export default class SmartExtension {
                 <p className="text-gray-600 mb-4">{resource.description}</p>
                 <div className="flex items-center space-x-2 text-purple-600 font-medium">
                   <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  {/* Removed ArrowRight icon (unused) */}
                 </div>
               </a>
             ))}

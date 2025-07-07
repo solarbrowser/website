@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Zap, Shield, Layers, Palette } from 'lucide-react';
+import { Sparkles, Zap, Shield, Layers, Palette } from 'lucide-react';
 import WaitlistModal from './WaitlistModal';
 
 const HeroSection = () => {
@@ -198,7 +198,7 @@ const HeroSection = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="relative z-10">{isSubmitted ? 'Thank you!' : 'Join Waitlist'}</span>
-              {!isSubmitted && <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />}
+              {/* Removed ArrowRight icon (unused) */}
             </motion.button>
           </form>
           <motion.p 

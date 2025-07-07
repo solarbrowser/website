@@ -6,6 +6,9 @@
   NODE_VERSION = "18"
   NEXT_PRIVATE_TARGET = "server"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [[redirects]]
   from = "/api/*"
   to = "/api/:splat"
@@ -14,14 +17,4 @@
 [[redirects]]
   from = "/_next/static/*"
   to = "/_next/static/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/public/*"
-  to = "/public/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
   status = 200

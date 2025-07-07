@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Brain, Shield, Puzzle, Palette, ArrowRight, Sparkles } from 'lucide-react';
+import { Brain, Shield, Puzzle, Palette, Sparkles } from 'lucide-react';
 
 import Link from 'next/link';
 import WaitlistModal from './WaitlistModal';
@@ -164,7 +164,7 @@ const FeaturesSection = () => {
                   Learn more
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover/link:w-full"></div>
                 </span>
-                <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-200" />
+                {/* Removed ArrowRight icon (unused) */}
               </Link>
 
               {/* 3D border effect */}

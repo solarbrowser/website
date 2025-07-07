@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Calendar, Zap, ArrowRight } from 'lucide-react';
+import { Calendar, Zap } from 'lucide-react';
 
 export default function BlogPage() {
   return (

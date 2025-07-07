@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import GridBackground from "@/components/GridBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,9 +39,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Detect dark mode using Tailwind's dark class on html
+  // GridBackground will be rendered behind everything except header/footer
+  // Use Tailwind's dark class for dark mode detection
+  // GridBackground is always behind content, not in header/footer
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-inter antialiased">
+      <body className="font-inter antialiased relative min-h-screen">
+        {/* GridBackground is a client component, but can be safely rendered here */}
+        <GridBackground />
         {children}
       </body>
     </html>

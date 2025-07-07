@@ -152,7 +152,7 @@ const mobileContent = (
           <li>
             <span className="font-semibold">Server Usage and Synchronization:</span>
             <ul className="ml-4 list-[circle]">
-              <li>Mobile uses Firebase only to deliver app news and updates.</li>
+              <li>Mobile uses Firebase only to deliver app news.</li>
               <li>No data is sent back from your device to our servers.</li>
             </ul>
           </li>

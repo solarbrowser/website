@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Redirect any language-prefixed legal URLs to English version
-const legalPaths = ['/privacy-policy', '/terms-of-use'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

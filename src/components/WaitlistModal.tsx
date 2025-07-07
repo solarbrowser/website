@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Mail, Sparkles } from 'lucide-react';
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -108,7 +108,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                     ) : (
                       <>
                         <span className="relative z-10">Join Waitlist</span>
-                        <ArrowRight className="w-5 h-5 relative z-10" />
+                        {/* Removed ArrowRight icon (unused) */}
                       </>
                     )}
                   </motion.button>

@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Shield, Lock, Eye, Database } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 export default function PrivacyPage() {
   return (

@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { FileText, Scale, AlertCircle } from 'lucide-react';
+import { Scale } from 'lucide-react';
 
 export default function TermsPage() {
   return (

@@ -56,13 +56,7 @@ const FeaturesSection = () => {
     },
   ];
 
-  // Homepage stats (same as vision page)
-  const stats = [
-    { number: '16', label: 'Age of Developers', description: 'Solar is built by a team of passionate 16-year-old developers.' },
-    { number: '0', label: 'Investment', description: 'Developed with zero budget. 100% indie, 100% passion.' },
-    { number: '0', label: 'Compromises on Privacy', description: 'We never collect, sell, or compromise your personal data. Ever.' },
-    { number: '∞', label: 'Possibilities Ahead', description: 'With AI at the core, the potential for innovation is truly limitless.' }
-  ];
+  // Stats block moved to StatsBlock component
 
   return (
     <section ref={ref} className="py-24 bg-white relative overflow-hidden">

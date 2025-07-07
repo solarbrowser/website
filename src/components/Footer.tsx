@@ -3,20 +3,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Github, Instagram, Mail } from 'lucide-react';
+import { Github, Instagram, Mail } from 'lucide-react';
 import { X as XLogo } from 'lucide-react';
-import { useState } from 'react';
-
 const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement email submission logic
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-  };
 
   const navigationLinks = [
     { name: 'Features', href: '/features' },

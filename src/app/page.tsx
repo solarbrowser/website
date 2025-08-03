@@ -1,4 +1,5 @@
 import Navigation from '@/components/Navigation';
+import DemoVideoBanner from '@/components/DemoVideoBanner';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import VisionSection from '@/components/VisionSection';
@@ -10,7 +11,8 @@ export default function Home() {
   return (
     <main>
       <Navigation />
-      <div className="pt-20" />
+      <DemoVideoBanner />
+      <div className="pt-32" />
       <HeroSection />
       <FeaturesSection />
       <VisionSection />

@@ -225,7 +225,7 @@ export default function SecurityPage() {
               <div className="text-gray-300">Known Vulnerabilities</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">&lt;10ms</div>
+              <div className="text-4xl font-bold text-white mb-2">&lt;100ms</div>
               <div className="text-gray-300">Threat Response Time</div>
             </div>
             <div className="text-center">

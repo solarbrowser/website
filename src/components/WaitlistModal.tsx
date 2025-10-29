@@ -74,6 +74,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                   </h2>
                   <p className="text-gray-600">
                     Be among the first to experience the future of web browsing with Solar.
+                    +100 people joined the waitlist!
                   </p>
                 </div>
 

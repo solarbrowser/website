@@ -1,161 +1,283 @@
 'use client';
 
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useTheme } from '@/context/ThemeContext';
 
 interface WaitlistModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
+export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
+  const { theme } = useTheme();
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+  const [captchaValue, setCaptchaValue] = useState('');
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  // Generate simple math captcha
+  useEffect(() => {
+    if (isOpen) {
+      const n1 = Math.floor(Math.random() * 10) + 1;
+      const n2 = Math.floor(Math.random() * 10) + 1;
+      setNum1(n1);
+      setNum2(n2);
+      setCaptchaValue('');
+      setEmail('');
+      setStatus('idle');
+      setMessage('');
+      
+      // Check cookie
+      const cookieSubmitted = document.cookie.includes('solar_waitlist=true');
+      setHasSubmitted(cookieSubmitted);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitted(true);
-    setIsLoading(false);
-    
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setEmail('');
-      onClose();
-    }, 3000);
+
+    // Check if already submitted
+    if (hasSubmitted) {
+      setStatus('error');
+      setMessage('You have already joined the waitlist!');
+      return;
+    }
+
+    // Validate captcha
+    const correctAnswer = num1 + num2;
+    if (parseInt(captchaValue) !== correctAnswer) {
+      setStatus('error');
+      setMessage('Incorrect captcha answer. Please try again.');
+      return;
+    }
+
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://formspree.io/f/xdkzvrwj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        
+        // Set cookie for 365 days
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 365);
+        document.cookie = `solar_waitlist=true; expires=${expiryDate.toUTCString()}; path=/`;
+        
+        setHasSubmitted(true);
+        
+        // Show toast and close modal
+        setShowToast(true);
+        setTimeout(() => {
+          onClose();
+          setTimeout(() => setShowToast(false), 3000);
+        }, 500);
+      } else {
+        setStatus('error');
+        setMessage('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setStatus('error');
+      setMessage('Network error. Please check your connection.');
+    }
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: 'spring', duration: 0.5 }}
-            className="glass-effect bg-white/90 backdrop-blur-xl rounded-3xl p-8 max-w-md w-full border border-gray-200/50 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100/50 transition-colors"
-            >
-              <X className="w-5 h-5 text-gray-600" />
-            </button>
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+            />
 
-            {!isSubmitted ? (
-              <>
-                {/* Header */}
-                <div className="text-center mb-8">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-4"
-                  >
-                    <Sparkles className="w-8 h-8 text-white" />
-                  </motion.div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    Join the Revolution
-                  </h2>
-                  <p className="text-gray-600">
-                    Be among the first to experience the future of web browsing with Solar.
-                  </p>
-                </div>
-
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      required
-                      className="w-full pl-12 pr-4 py-4 glass-effect bg-white/60 backdrop-blur-xl border border-gray-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 text-gray-900 placeholder-gray-500 transition-all duration-300"
-                    />
-                  </div>
-
-                  <motion.button
-                    type="submit"
-                    disabled={isLoading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg relative overflow-hidden group"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    {isLoading ? (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                      />
-                    ) : (
-                      <>
-                        <span className="relative z-10">Join Waitlist</span>
-                        {/* Removed ArrowRight icon (unused) */}
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-
-                {/* Footer */}
-                <p className="text-sm text-gray-500 text-center mt-6">
-                  🚀 Get exclusive early access and updates about Solar Browser
-                </p>
-              </>
-            ) : (
-              /* Success state */
+            {/* Modal */}
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-center py-8"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.3 }}
+                className={`rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl pointer-events-auto relative border ${
+                  theme === 'dark'
+                    ? 'bg-[#232223] border-white/10'
+                    : 'bg-[#E4DED4] border-black/10'
+                }`}
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: 'spring' }}
-                  className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full mb-6"
+                {/* Close Button */}
+                <button
+                  onClick={onClose}
+                  className={`absolute top-4 right-4 transition-colors p-1 ${
+                    theme === 'dark'
+                      ? 'text-white/50 hover:text-white'
+                      : 'text-black/50 hover:text-black'
+                  }`}
                 >
-                  <motion.div
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                  >
-                    ✓
-                  </motion.div>
-                </motion.div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Welcome to the Future!
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  You&apos;re now on the waitlist for Solar Browser. We&apos;ll be in touch with exclusive updates.
-                </p>
-                <div className="text-sm text-gray-500">
-                  Check your email for confirmation ✨
-                </div>
-              </motion.div>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
 
-export default WaitlistModal;
+                {hasSubmitted ? (
+                  /* Already Submitted State */
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                      Already Sent!
+                    </h3>
+                    <p className={theme === 'dark' ? 'text-white/60' : 'text-black/60'}>
+                      You&apos;ve already joined the waitlist. We&apos;ll notify you when Solar is ready!
+                    </p>
+                  </div>
+                ) : (
+                  /* Normal Form */
+                  <>
+                    <div className="text-center mb-6">
+                      <h3 className={`text-2xl sm:text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                        Join the Waitlist
+                      </h3>
+                      <p className={`text-sm sm:text-base ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>
+                        Enter your email and be the first to know when Solar is ready to launch. you&apos;ll get notified as soon as we go live!
+                      </p>
+                    </div>
+
+                    {/* Form */}
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      {/* Email Input */}
+                      <div>
+                        <label htmlFor="email" className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          disabled={status === 'loading'}
+                          placeholder="you@example.com"
+                          className={`w-full px-4 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed border ${
+                            theme === 'dark'
+                              ? 'bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30'
+                              : 'bg-[#F0EBE3] border-black/10 text-black placeholder:text-black/30 focus:border-black/30'
+                          } focus:outline-none`}
+                        />
+                      </div>
+
+                      {/* Captcha */}
+                      <div>
+                        <label htmlFor="captcha" className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                          What is {num1} + {num2}?
+                        </label>
+                        <input
+                          type="number"
+                          id="captcha"
+                          value={captchaValue}
+                          onChange={(e) => setCaptchaValue(e.target.value)}
+                          required
+                          disabled={status === 'loading'}
+                          placeholder="Enter the answer"
+                          className={`w-full px-4 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed border ${
+                            theme === 'dark'
+                              ? 'bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30'
+                              : 'bg-[#F0EBE3] border-black/10 text-black placeholder:text-black/30 focus:border-black/30'
+                          } focus:outline-none`}
+                        />
+                      </div>
+
+                      {/* Status Message */}
+                      {message && status === 'error' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="p-3 rounded-lg text-sm bg-red-500/10 text-red-200 border border-red-500/20"
+                        >
+                          {message}
+                        </motion.div>
+                      )}
+
+                      {/* Submit Button */}
+                      <button
+                        type="submit"
+                        disabled={status === 'loading'}
+                        className={`w-full px-6 py-3 font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
+                          theme === 'dark'
+                            ? 'bg-[#FAF9F7] text-black hover:bg-white/90'
+                            : 'bg-black text-white hover:bg-black/90'
+                        }`}
+                      >
+                        {status === 'loading' ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Sending...
+                          </>
+                        ) : (
+                          'Join Waitlist'
+                        )}
+                      </button>
+                    </form>
+
+                    {/* Privacy Note */}
+                    <p className={`text-xs text-center mt-4 ${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>
+                      We respect your privacy. No spam, ever.
+                    </p>
+                  </>
+                )}
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-8 left-0 right-0 z-[60] pointer-events-none flex justify-center px-4"
+          >
+            <div className="bg-green-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-2xl flex items-center justify-center gap-2 text-sm sm:text-base max-w-max">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="font-medium whitespace-nowrap">Successfully joined the waitlist!</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+
+
+
+
+
+

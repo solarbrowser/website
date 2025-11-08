@@ -1,36 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import GridBackground from "@/components/GridBackground";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Solar Browser - The Future of Web Browsing",
-  description: "Experience the next generation of web browsing with Solar - an AI-powered browser that learns, protects, and adapts to you.",
-  keywords: ["browser", "AI", "artificial intelligence", "web browser", "privacy", "security", "extensions"],
-  authors: [{ name: "Vertex Corporation" }],
-  creator: "Vertex Corporation",
-  openGraph: {
-    title: "Solar Browser - The Future of Web Browsing",
-    description: "Experience the next generation of web browsing with Solar - an AI-powered browser that learns, protects, and adapts to you.",
-    url: "https://browser.solar",
-    siteName: "Solar Browser",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Solar Browser - The Future of Web Browsing",
-    description: "Experience the next generation of web browsing with Solar - an AI-powered browser that learns, protects, and adapts to you.",
-  },
-  viewport: "width=device-width, initial-scale=1",
+  description: "Experience the next generation of web browsing with Solar Browser. Fast, secure, and beautifully designed.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
 };
 
@@ -39,16 +17,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Detect dark mode using Tailwind's dark class on html
-  // GridBackground will be rendered behind everything except header/footer
-  // Use Tailwind's dark class for dark mode detection
-  // GridBackground is always behind content, not in header/footer
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-inter antialiased relative min-h-screen">
-        {/* GridBackground is a client component, but can be safely rendered here */}
-        <GridBackground />
-        {children}
+    <html lang="en">
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <script 
+          data-name="BMC-Widget" 
+          src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+          data-id="solarbrowser" 
+          data-description="Support me on Buy me a coffee!" 
+          data-message="powering the future of browsing, support Solar's open-source light, thanks for even thinking!" 
+          data-color="#FF813F" 
+          data-position="Right" 
+          data-x_margin="18" 
+          data-y_margin="18"
+          async
+        />
+      </head>
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

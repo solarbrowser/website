@@ -1,106 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #131213;
-  --primary: #131213;
-  --secondary: #f8f9fa;
-  --accent: #e9ecef;
-  --muted: #6c757d;
+  --background: #232223;
+  --foreground: #f9f9f9;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
+/* Light mode - Beautiful Soft Palette */
+[data-theme='light'] {
+  --background: #FAF9F7; /* Very soft off-white background */
+  --foreground: #1a1a1a; /* Deep charcoal for excellent readability */
+  --secondary-bg: #F0EBE3; /* Soft tan/beige for cards */
+  --tertiary-bg: #E4DED4; /* Warmer tan for accents */
+  --accent-coral: #E07A5F; /* Beautiful coral/terracotta for highlights */
+  --accent-teal: #3D5A80; /* Deep teal for special elements */
+  --muted-text: #6B7280; /* Gray for secondary text */
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Grid background pattern */
-html::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.07;
-  background-image:
-    linear-gradient(0deg, transparent 94%, #e9ecef 94%, #e9ecef 100%),
-    linear-gradient(90deg, transparent 94%, #e9ecef 94%, #e9ecef 100%);
-  background-size: 120px 120px;
-  background-position: center center;
-  pointer-events: none;
-  z-index: -1;
+/* Theme-aware text colors */
+[data-theme='dark'] .theme-text {
+  color: #f9f9f9;
 }
 
-::selection {
-  background: var(--primary);
-  color: var(--background);
+[data-theme='light'] .theme-text {
+  color: #1a1a1a;
 }
 
-/* Custom utilities for premium effects */
-@layer utilities {
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .glass-dark {
-    background: rgba(19, 18, 19, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(19, 18, 19, 0.2);
-  }
-  
-  .text-gradient {
-    background: linear-gradient(135deg, #131213, #2d2d2d);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-  
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    border-radius: 16px;
-  }
-  
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(19,18,19,0.2), rgba(19,18,19,0.1));
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-  }
+[data-theme='dark'] .theme-text-secondary {
+  color: rgba(249, 249, 249, 0.6);
+}
+
+[data-theme='light'] .theme-text-secondary {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+[data-theme='dark'] .theme-text-muted {
+  color: rgba(249, 249, 249, 0.4);
+}
+
+[data-theme='light'] .theme-text-muted {
+  color: rgba(26, 26, 26, 0.4);
+}
+
+/* Theme-aware backgrounds */
+[data-theme='dark'] .theme-bg {
+  background-color: #232223;
+}
+
+[data-theme='light'] .theme-bg {
+  background-color: #FAE9D5; /* Antique White - Warm */
+}
+
+[data-theme='dark'] .theme-bg-secondary {
+  background-color: rgba(249, 249, 249, 0.05);
+}
+
+[data-theme='light'] .theme-bg-secondary {
+  background-color: #FFF3DA; /* Cornsilk - Warmer accent */
+}
+
+/* Theme-aware borders */
+[data-theme='dark'] .theme-border {
+  border-color: rgba(249, 249, 249, 0.1);
+}
+
+[data-theme='light'] .theme-border {
+  border-color: rgba(26, 26, 26, 0.1);
+}
+
+[data-theme='dark'] .theme-border-strong {
+  border-color: rgba(249, 249, 249, 0.2);
+}
+
+[data-theme='light'] .theme-border-strong {
+  border-color: rgba(26, 26, 26, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

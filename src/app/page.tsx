@@ -1,25 +1,32 @@
-import Navigation from '@/components/Navigation';
-import DemoVideoBanner from '@/components/DemoVideoBanner';
-import HeroSection from '@/components/HeroSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import VisionSection from '@/components/VisionSection';
-import Footer from '@/components/Footer';
+'use client';
 
-import StatsBlock from '@/components/StatsBlock';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Features from '@/components/Features';
+import Technology from '@/components/Technology';
+import Experience from '@/components/Experience';
+import Footer from '@/components/Footer';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Home() {
+  const { theme } = useTheme();
+  
   return (
-    <main>
-      <Navigation />
-      <DemoVideoBanner />
-      <div className="pt-32" />
-      <HeroSection />
-      <FeaturesSection />
-      <VisionSection />
-      {/* Stats block below Vision Manifesto */}
-      <div className="pb-8" />
-      <StatsBlock />
+    <main className={`min-h-screen transition-colors ${theme === 'dark' ? 'bg-dark' : 'bg-[#FAF9F7]'}`}>
+      <Navbar />
+      <Hero />
+      <Features />
+      <Technology />
+      <Experience />
       <Footer />
     </main>
   );
 }
+
+
+
+
+
+
+
+

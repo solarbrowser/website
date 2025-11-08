@@ -1,0 +1,77 @@
+{
+  "lastUpdated": "2024-11-03T00:00:00Z",
+  "categories": [
+    {
+      "name": "ES2026 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2025 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2024 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2023 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2022 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2021 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "ES2020 Features",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "name": "Core Language",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 0,
+      "failedTests": [],
+      "skippedTests": []
+    }
+  ]
+}

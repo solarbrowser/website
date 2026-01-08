@@ -32,17 +32,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/customize" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
+                <Link href="https://docs.browser.solar/customization" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
                   Customize Your Browser
                 </Link>
               </li>
               <li>
-                <Link href="/import" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
+                <Link href="https://docs.browser.solar/migration" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
                   Import Data
                 </Link>
               </li>
               <li>
-                <Link href="/shortcuts" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
+                <Link href="https://docs.browser.solar/customization" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
                   Keyboard Shortcuts
                 </Link>
               </li>
@@ -59,7 +59,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/documentation" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
+                <Link href="https://docs.browser.solar/" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
                   Documentation
                 </Link>
               </li>

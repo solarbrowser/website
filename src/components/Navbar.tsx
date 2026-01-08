@@ -25,18 +25,18 @@ export default function Navbar() {
       name: 'Getting Started',
       items: [
         { title: 'Download', desc: 'Get Solar for your platform', href: '/download' },
-        { title: 'Customize Your Browser', desc: 'Make it your own', href: '/customize' },
-        { title: 'Import Data', desc: 'Bring your bookmarks and history', href: '/import' },
-        { title: 'Keyboard Shortcuts', desc: 'Navigate like a pro', href: '/shortcuts' }
+        { title: 'Customize Your Browser', desc: 'Make it your own', href: 'https://docs.browser.solar/customization' },
+        { title: 'Import Data', desc: 'Bring your bookmarks and history', href: 'https://docs.browser.solar/migration' },
+        { title: 'Keyboard Shortcuts', desc: 'Navigate like a pro', href: 'https://docs.browser.solar/customization' }
       ]
     },
     {
       name: 'For Developers',
       items: [
         { title: 'Quanta Engine', desc: 'Our JavaScript engine', href: '/quanta' },
-        { title: 'Documentation', desc: 'Complete API reference', href: '/documentation' },
+        { title: 'Documentation', desc: 'Complete API reference', href: 'https://docs.browser.solar/' },
         { title: 'GitHub', desc: 'View our source code', href: 'https://github.com/solarbrowser' },
-        { title: 'API Reference', desc: 'Build extensions and tools', href: '/api' }
+        { title: 'API Reference', desc: 'Build extensions and tools', href: 'https://docs.browser.solar/extension-development' }
       ]
     },
     {

@@ -33,7 +33,7 @@ export default function Navbar() {
     {
       name: 'For Developers',
       items: [
-        { title: 'Quanta Engine', desc: 'Our JavaScript engine', href: '/quanta' },
+        { title: 'Quanta Engine', desc: 'Our JavaScript engine', href: 'https://quanta.js.org/' },
         { title: 'Documentation', desc: 'Complete API reference', href: 'https://docs.browser.solar/' },
         { title: 'GitHub', desc: 'View our source code', href: 'https://github.com/solarbrowser' },
         { title: 'API Reference', desc: 'Build extensions and tools', href: 'https://docs.browser.solar/extension-development' }

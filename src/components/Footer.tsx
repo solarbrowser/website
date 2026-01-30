@@ -54,7 +54,7 @@ export default function Footer() {
             <h4 className={`font-semibold mb-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-black'}`}>For Developers</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/quanta" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
+                <Link href="https://quanta.js.org/" className={`text-sm transition-colors ${theme === 'dark' ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'}`}>
                   Quanta Engine
                 </Link>
               </li>

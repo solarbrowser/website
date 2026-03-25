@@ -22,12 +22,6 @@ export default function TeamPage() {
       role: 'Core Contributor',
       avatar: 'https://github.com/milanhuzz.png',
       github: 'https://github.com/milanhuzz'
-    },
-    {
-      name: 'mustawtfa',
-      role: 'Core Contributor',
-      avatar: 'https://github.com/mustawtfa.png',
-      github: 'https://github.com/mustawtfa'
     }
   ];
 

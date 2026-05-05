@@ -16,12 +16,6 @@ export default function TeamPage() {
       role: 'Lead of the Solar',
       avatar: 'https://github.com/ataturkcu.png',
       github: 'https://github.com/ataturkcu'
-    },
-    {
-      name: 'milanhuzz',
-      role: 'Core Contributor',
-      avatar: 'https://github.com/milanhuzz.png',
-      github: 'https://github.com/milanhuzz'
     }
   ];
 

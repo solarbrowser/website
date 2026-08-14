@@ -1,0 +1,3 @@
+# Quanta has its own site; /quanta used to duplicate it.
+/quanta      https://quanta.js.org/   301!
+/quanta/*    https://quanta.js.org/:splat   301!

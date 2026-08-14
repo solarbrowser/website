@@ -1,214 +1,158 @@
-'use client';
+import type { Metadata } from 'next';
+import LegalPage from '@/components/LegalPage';
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useTheme } from '@/context/ThemeContext';
+export const metadata: Metadata = {
+  title: 'Cookie policy',
+  description: 'The two things this site stores in your browser, and why.',
+  alternates: { canonical: '/cookie-policy' },
+};
 
-export default function CookiePolicy() {
-  const { theme } = useTheme();
-  
+export default function CookiePolicyPage() {
   return (
-    <div className={`min-h-screen py-24 px-6 ${theme === 'dark' ? 'bg-[#232223] text-[#f9f9f9]' : 'bg-[#FAF9F7] text-[#1a1a1a]'}`}>
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <Link 
-            href="/"
-            className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6"
-          >
-            ← Back to Home
-          </Link>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Cookie Policy</h1>
-          <p className="text-white/60">Last updated: November 2, 2025</p>
-        </motion.div>
+    <LegalPage
+      title="Cookie policy"
+      updated="14 August 2026"
+      href="/cookie-policy"
+      intro="This site stores two things in your browser. Neither identifies you, and neither follows you anywhere else."
+    >
+      <h2>What are cookies?</h2>
+      <p>
+        Cookies are small text files stored on your device when you visit a
+        website. They help a site remember your preferences and actions.
+        Browsers also offer <strong>local storage</strong>, which works the same
+        way from your point of view but is never sent to a server.
+      </p>
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="prose prose-invert prose-lg max-w-none"
-        >
-          {/* Introduction */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">What Are Cookies?</h2>
-            <p className="text-white/80 leading-relaxed">
-              Cookies are small text files that are stored on your device when you visit a website. 
-              They help the website remember your preferences and actions.
-            </p>
-          </div>
+      <h2>What this site stores</h2>
+      <p>
+        Two entries, both created only when you do something that needs them.
+      </p>
 
-          {/* How We Use Cookies */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">How We Use Cookies</h2>
-            <p className="text-white/80 leading-relaxed mb-4">
-              We use minimal cookies on our website. We believe in transparency and simplicity.
-            </p>
-            
-            <div className="bg-white/5 border border-white/10 rounded-lg p-6 mb-6">
-              <h3 className="text-xl font-semibold mb-3 text-white">Theme Preference Cookie</h3>
-              <div className="space-y-3 text-white/80">
-                <p><strong className="text-white">Cookie Name:</strong> <code className="bg-white/10 px-2 py-1 rounded">solar-theme</code></p>
-                <p><strong className="text-white">Purpose:</strong> To remember your theme preference (dark/light mode)</p>
-                <p><strong className="text-white">Duration:</strong> 365 days (1 year)</p>
-                <p><strong className="text-white">Type:</strong> Essential cookie (required for site functionality)</p>
-                <p><strong className="text-white">Data Stored:</strong> Either &quot;dark&quot; or &quot;light&quot; - your preferred theme setting</p>
-              </div>
-            </div>
+      <h3>Colour mode -- local storage</h3>
+      <ul>
+        <li>
+          <strong>Key:</strong> <code>solar-mode</code>
+        </li>
+        <li>
+          <strong>Type:</strong> local storage, not a cookie -- it is never
+          transmitted to us
+        </li>
+        <li>
+          <strong>Purpose:</strong> to remember whether you chose Auto, Light or
+          Dark
+        </li>
+        <li>
+          <strong>Value:</strong> one of <code>auto</code>, <code>light</code>{' '}
+          or <code>dark</code>
+        </li>
+        <li>
+          <strong>Duration:</strong> until you clear site data
+        </li>
+        <li>
+          <strong>Written:</strong> only when you pick a mode. In the default
+          Auto mode, the palette is chosen from your device clock and nothing is
+          stored at all.
+        </li>
+      </ul>
 
-            <div className="bg-white/5 border border-white/10 rounded-lg p-6 mb-6">
-              <h3 className="text-xl font-semibold mb-3 text-white">Waitlist Cookie</h3>
-              <div className="space-y-3 text-white/80">
-                <p><strong className="text-white">Cookie Name:</strong> <code className="bg-white/10 px-2 py-1 rounded">solar_waitlist</code></p>
-                <p><strong className="text-white">Purpose:</strong> To remember that you&apos;ve already joined our waitlist</p>
-                <p><strong className="text-white">Duration:</strong> 365 days (1 year)</p>
-                <p><strong className="text-white">Type:</strong> Local storage cookie (stored only on your device)</p>
-                <p><strong className="text-white">Data Stored:</strong> A simple true/false value indicating waitlist participation</p>
-              </div>
-            </div>
+      <h3>Waitlist -- cookie</h3>
+      <ul>
+        <li>
+          <strong>Name:</strong> <code>solar_waitlist</code>
+        </li>
+        <li>
+          <strong>Type:</strong> essential cookie, for spam prevention
+        </li>
+        <li>
+          <strong>Purpose:</strong> to remember that you have already joined the
+          waitlist
+        </li>
+        <li>
+          <strong>Value:</strong> a single <code>true</code> flag
+        </li>
+        <li>
+          <strong>Duration:</strong> 365 days
+        </li>
+        <li>
+          <strong>Written:</strong> only after you successfully submit the
+          waitlist form
+        </li>
+      </ul>
 
-            <p className="text-white/80 leading-relaxed">
-              These cookies are used solely for essential site functionality and spam prevention. They store no personal information, 
-              no tracking data, and no identifiable details about you.
-            </p>
-          </div>
+      <p>
+        Neither entry stores personal information, tracking data, or anything
+        identifiable about you.
+      </p>
 
-          {/* What We Don't Do */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">What We Don&apos;t Do</h2>
-            <ul className="space-y-3 text-white/80">
-              <li className="flex items-start">
-                <span className="text-green-400 mr-2">✓</span>
-                <span>We do not use tracking cookies</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-400 mr-2">✓</span>
-                <span>We do not use advertising cookies</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-400 mr-2">✓</span>
-                <span>We do not use analytics cookies</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-400 mr-2">✓</span>
-                <span>We do not share cookie data with third parties</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-400 mr-2">✓</span>
-                <span>We do not use cookies to track your browsing across other websites</span>
-              </li>
-            </ul>
-          </div>
+      <h2>What we don&apos;t do</h2>
+      <ul>
+        <li>We do not use tracking cookies</li>
+        <li>We do not use advertising cookies</li>
+        <li>We do not use analytics cookies</li>
+        <li>We do not share cookie data with third parties</li>
+        <li>We do not use cookies to follow you across other websites</li>
+      </ul>
 
-          {/* Managing Cookies */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">Managing Your Cookies</h2>
-            <p className="text-white/80 leading-relaxed mb-4">
-              You have full control over cookies:
-            </p>
-            <ul className="space-y-3 text-white/80">
-              <li className="flex items-start">
-                <span className="text-white/40 mr-2">•</span>
-                <span>You can delete the waitlist cookie at any time through your browser settings</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-white/40 mr-2">•</span>
-                <span>You can block cookies entirely in your browser preferences</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-white/40 mr-2">•</span>
-                <span>Deleting the cookie will allow you to submit the waitlist form again (though we recommend not doing so)</span>
-              </li>
-            </ul>
-          </div>
+      <h2>Third-party content</h2>
+      <p>
+        This site embeds a Buy Me a Coffee support widget, which is loaded from
+        that provider and may set its own storage under its own policy. That is
+        the only third-party script on the site.
+      </p>
 
-          {/* Browser Cookie Settings */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">How to Clear Cookies in Your Browser</h2>
-            <div className="space-y-4">
-              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                <p className="font-semibold text-white mb-2">Chrome / Edge</p>
-                <p className="text-white/80 text-sm">Settings → Privacy and Security → Clear browsing data → Cookies and other site data</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                <p className="font-semibold text-white mb-2">Firefox</p>
-                <p className="text-white/80 text-sm">Settings → Privacy & Security → Cookies and Site Data → Clear Data</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                <p className="font-semibold text-white mb-2">Safari</p>
-                <p className="text-white/80 text-sm">Preferences → Privacy → Manage Website Data → Remove All</p>
-              </div>
-            </div>
-          </div>
+      <h2>Managing what is stored</h2>
+      <p>You have full control:</p>
+      <ul>
+        <li>
+          You can delete either entry at any time through your browser settings
+        </li>
+        <li>You can block cookies entirely in your browser preferences</li>
+        <li>
+          Deleting the waitlist cookie will let you submit the form again,
+          though there is no reason to
+        </li>
+        <li>
+          Deleting the colour mode entry simply returns the site to Auto
+        </li>
+      </ul>
 
-          {/* GDPR Compliance */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">GDPR & Privacy Compliance</h2>
-            <p className="text-white/80 leading-relaxed mb-4">
-              Our use of cookies is minimal and privacy-focused. The waitlist cookie is considered a &quot;strictly necessary&quot; 
-              cookie as it&apos;s required for the basic functionality of preventing spam submissions.
-            </p>
-            <p className="text-white/80 leading-relaxed">
-              Under GDPR and similar privacy laws, strictly necessary cookies do not require explicit consent as they 
-              are essential for the website&apos;s legitimate operation. However, we believe in transparency and want you 
-              to understand exactly what we store and why.
-            </p>
-          </div>
+      <h2>How to clear cookies in your browser</h2>
+      <h3>Chrome / Edge</h3>
+      <p>
+        Settings → Privacy and security → Clear browsing data → Cookies and
+        other site data
+      </p>
+      <h3>Firefox</h3>
+      <p>Settings → Privacy &amp; Security → Cookies and Site Data → Clear Data</p>
+      <h3>Safari</h3>
+      <p>Settings → Privacy → Manage Website Data → Remove All</p>
 
-          {/* Updates to Policy */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">Updates to This Policy</h2>
-            <p className="text-white/80 leading-relaxed">
-              We may update this Cookie Policy from time to time. If we make significant changes, we&apos;ll update 
-              the &quot;Last updated&quot; date at the top of this page. We recommend checking this page periodically.
-            </p>
-          </div>
+      <h2>GDPR and privacy compliance</h2>
+      <p>
+        Our use of storage is minimal. The waitlist cookie is a
+        &quot;strictly necessary&quot; cookie: it exists to prevent duplicate
+        and spam submissions. The colour mode entry is local storage set only on
+        your explicit action.
+      </p>
+      <p>
+        Under GDPR and similar laws, strictly necessary cookies do not require
+        explicit consent as they are essential to the site&apos;s legitimate
+        operation. We list them here anyway so you know exactly what is stored
+        and why.
+      </p>
 
-          {/* Contact */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 text-white">Questions?</h2>
-            <p className="text-white/80 leading-relaxed">
-              If you have any questions about our use of cookies, please contact us at{' '}
-              <a href="mailto:support@browser.solar" className="text-white hover:text-white/80 underline">
-                support@browser.solar
-              </a>
-            </p>
-          </div>
+      <h2>Updates to this policy</h2>
+      <p>
+        We may update this policy from time to time. If we make significant
+        changes, the &quot;Updated&quot; date at the top of this page changes
+        with them.
+      </p>
 
-          {/* Related Pages */}
-          <div className="border-t border-white/10 pt-8">
-            <p className="text-white/60 mb-4">Related Legal Documents:</p>
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href="/privacy-policy" 
-                className="text-white hover:text-white/80 underline"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                href="/terms-of-use" 
-                className="text-white hover:text-white/80 underline"
-              >
-                Terms of Service
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+      <h2>Questions</h2>
+      <p>
+        Write to{' '}
+        <a href="mailto:support@browser.solar">support@browser.solar</a>.
+      </p>
+    </LegalPage>
   );
 }
-
-
-
-
-
-
-
-
-

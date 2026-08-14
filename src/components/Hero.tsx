@@ -1,177 +1,103 @@
 'use client';
 
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
-import WaitlistModal from './WaitlistModal';
-import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 
-const speedWords = ['Fast', 'Lightning-Quick', 'Optimized', 'Blazing'];
-const securityWords = ['Secure', 'Private', 'Encrypted'];
-const designWords = ['Beautifully minimal', 'Elegantly personal', 'Seamlessly yours', 'Tailored to you'];
+const bandCopy: Record<string, string> = {
+  dawn: 'Dawn palette',
+  day: 'Day palette',
+  dusk: 'Dusk palette',
+  night: 'Night palette',
+};
 
-const allWords = [
-  ...speedWords,
-  ...securityWords,
-  ...designWords
-];
-
+/**
+ * A type specimen, not a hero card: one word at full width, the rest of the
+ * information set small and placed rather than boxed. No borders, no panels,
+ * no fills -- hierarchy comes only from size and position.
+ */
 export default function Hero() {
-  const { theme } = useTheme();
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  });
+  const { mode, band } = useTheme();
+  const reduceMotion = useReducedMotion();
+  const [clock, setClock] = useState<string | null>(null);
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
+  // Rendered only after mount: the server has no idea what time it is here.
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % allWords.length);
-    }, 2000); 
-
-    return () => {
-      clearInterval(interval);
-    };
+    const read = () =>
+      setClock(
+        new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      );
+    read();
+    const tick = window.setInterval(read, 30_000);
+    return () => window.clearInterval(tick);
   }, []);
 
+  const rise = (delay: number) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] as const },
+        };
+
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <motion.div 
-        style={{ y, opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center py-32"
+    <section className="mx-auto w-full max-w-[110rem] px-6 pb-24 pt-10 md:px-16 md:pb-40 md:pt-16">
+      <motion.p {...rise(0.05)} className="label mb-16 md:mb-28">
+        In development
+      </motion.p>
+
+      <motion.h1
+        {...rise(0.15)}
+        className="display flex flex-wrap items-baseline gap-x-[0.12em] text-[clamp(3.5rem,22vw,19rem)] leading-[0.8]"
       >
-        {/* Status Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-block mb-8"
+        Solar
+        <span className="text-[0.18em] font-medium tracking-[0.1em] text-fg-3">
+          browser
+        </span>
+      </motion.h1>
+
+      <div className="mt-16 flex flex-col gap-12 md:mt-24 md:flex-row md:items-end md:justify-between md:gap-16">
+        <motion.p
+          {...rise(0.35)}
+          className="max-w-xl text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-[1.1] tracking-[-0.02em]"
         >
-          <span className={`inline-flex items-center px-4 py-2 rounded-full text-xs font-medium backdrop-blur-sm ${
-            theme === 'dark'
-              ? 'bg-white/5 border-white/10 text-white/80'
-              : 'bg-[#F0EBE3] border-black/10 text-black/80'
-          } border`}>
-            <span className="relative flex h-2 w-2 mr-2">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${theme === 'dark' ? 'bg-[#FAF9F7]' : 'bg-black'}`}></span>
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${theme === 'dark' ? 'bg-[#FAF9F7]' : 'bg-black'}`}></span>
-            </span>
-            Currently in Development
-          </span>
+          A browser built from the ground up on today&apos;s standards.
+        </motion.p>
+
+        <motion.div {...rise(0.5)} className="shrink-0 md:text-right">
+          <p className="label mb-2">
+            {clock ? `${clock} local` : 'Local time'}
+          </p>
+          <p className="label">
+            {mode === 'auto'
+              ? bandCopy[band]
+              : `${mode === 'light' ? 'Light' : 'Dark'} palette -- pinned`}
+          </p>
         </motion.div>
+      </div>
 
-        {/* Main Heading - Huge */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-bold mb-8 leading-none"
+      {/* The arrow nudges rather than bounces: enough motion to read as
+          "scroll", not enough to pull the eye away from the type. */}
+      <motion.p {...rise(0.65)} className="label mt-20 md:mt-32">
+        <motion.span
+          aria-hidden
+          className="mr-2 inline-block"
+          animate={reduceMotion ? undefined : { y: [0, 5, 0] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            repeatDelay: 0.6,
+          }}
         >
-          <span className={`block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>SOLAR</span>
-          <span className={`block -mt-4 sm:-mt-8 md:-mt-12 lg:-mt-16 ${theme === 'dark' ? 'text-white/10' : 'text-black/10'}`}>BROWSER</span>
-        </motion.h1>
-
-        {/* Rotating Subtitle with Effects */}
-        <div className={`max-w-4xl mx-auto mb-12 flex flex-wrap items-center justify-center px-4 ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>
-          <span className="text-sm sm:text-base md:text-xl lg:text-2xl">The future of web browsing.&nbsp;</span>
-          
-          {/* Single Word Slot - Otomatik boyutlandırma */}
-          <span className="text-sm sm:text-base md:text-xl lg:text-2xl font-semibold inline-flex items-center">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentIndex}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className={`inline-block ${
-                  // Speed words - Yellow/Orange gradients
-                  allWords[currentIndex] === 'Fast' ? 'bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 bg-clip-text text-transparent' :
-                  allWords[currentIndex] === 'Lightning-Quick' ? 'bg-gradient-to-r from-yellow-300 via-yellow-100 to-yellow-300 bg-clip-text text-transparent' :
-                  allWords[currentIndex] === 'Optimized' ? 'bg-gradient-to-r from-orange-200 via-yellow-200 to-orange-200 bg-clip-text text-transparent' :
-                  allWords[currentIndex] === 'Blazing' ? 'bg-gradient-to-r from-orange-300 via-red-200 to-orange-300 bg-clip-text text-transparent' :
-                  
-                  // Security words - Green/Blue/Purple gradients
-                  allWords[currentIndex] === 'Secure' ? 'bg-gradient-to-r from-green-200 via-emerald-200 to-green-200 bg-clip-text text-transparent' :
-                  allWords[currentIndex] === 'Private' ? 'bg-gradient-to-r from-purple-200 via-violet-200 to-purple-200 bg-clip-text text-transparent' :
-                  allWords[currentIndex] === '*******' ? 'bg-gradient-to-r from-blue-200 via-cyan-200 to-blue-200 bg-clip-text text-transparent tracking-wider' :
-                  allWords[currentIndex] === 'Encrypted' ? 'bg-gradient-to-r from-green-300 via-teal-200 to-green-300 bg-clip-text text-transparent' :
-                  
-                  // Design words - Rainbow gradients
-                  'bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 bg-clip-text text-transparent'
-                }`}
-              >
-                {allWords[currentIndex]}
-              </motion.span>
-            </AnimatePresence>
-            <span className="text-sm sm:text-base md:text-xl lg:text-2xl">.</span>
-          </span>
-        </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <button 
-            onClick={() => setIsWaitlistOpen(true)}
-            className={`group relative px-8 py-4 font-semibold rounded-full overflow-hidden transition-all hover:scale-105 ${
-              theme === 'dark'
-                ? 'bg-[#FAF9F7] text-black'
-                : 'bg-black text-white'
-            }`}
-          >
-            <span className="relative z-10">Join Waitlist</span>
-            <div className={`absolute inset-0 scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
-              theme === 'dark' ? 'bg-black/10' : 'bg-white/10'
-            }`}></div>
-          </button>
-          
-          <Link 
-            href="/support"
-            className={`group relative px-8 py-4 font-semibold rounded-full overflow-hidden transition-all hover:scale-105 border ${
-              theme === 'dark'
-                ? 'bg-white/5 border-white/10 text-white hover:bg-white/10'
-                : 'bg-[#F0EBE3] border-black/10 text-black hover:bg-[#E4DED4]'
-            }`}
-          >
-            <span className="relative z-10">Support Us ❤️</span>
-          </Link>
-        </motion.div>
-
-        {/* Waitlist Modal */}
-        <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className={`text-sm ${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}
-          >
-            ↓ Scroll
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          ↓
+        </motion.span>
+        Five reasons
+      </motion.p>
     </section>
   );
 }
-
-
-
-
-
-

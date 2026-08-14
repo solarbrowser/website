@@ -1,134 +1,172 @@
-'use client';
-
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import WaitlistModal from '@/components/WaitlistModal';
-import { useTheme } from '@/context/ThemeContext';
+import PageShell from '@/components/PageShell';
+import PageHeader from '@/components/PageHeader';
+import Section from '@/components/Section';
+import CtaBlock from '@/components/CtaBlock';
+
+const team = [
+  {
+    name: 'ataturkcu',
+    role: 'Lead',
+    avatar: 'https://github.com/ataturkcu.png',
+    github: 'https://github.com/ataturkcu',
+  },
+];
+
+/**
+ * Listed separately and labelled plainly. Crediting the tooling is the honest
+ * thing to do, but it does not belong in a list of people.
+ */
+const robots = [
+  {
+    name: 'Claude',
+    maker: 'Anthropic',
+    role: 'Quanta -- design review and implementation',
+    note: 'The architecture is ours, but it was argued into shape: we brought designs, Claude found the holes, we pushed back and went and read how the other engines actually do it. Claude then wrote a large share of the engine against the result. Saying so costs nothing and hiding it would be a lie.',
+    href: 'https://claude.ai',
+  },
+];
+
+export const metadata: Metadata = {
+  title: 'Team',
+  description: 'The people building Solar, and the tooling that helped -- listed rather than hidden.',
+  alternates: { canonical: '/team' },
+};
 
 export default function TeamPage() {
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-  const { theme } = useTheme();
-
-  const team = [
-    {
-      name: 'ataturkcu',
-      role: 'Lead of the Solar',
-      avatar: 'https://github.com/ataturkcu.png',
-      github: 'https://github.com/ataturkcu'
-    }
-  ];
-
   return (
-    <div className={`min-h-screen py-24 px-6 ${theme === 'dark' ? 'bg-[#232223] text-[#f9f9f9]' : 'bg-[#FAF9F7] text-[#1a1a1a]'}`}>
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <Link 
-            href="/"
-            className={`inline-flex items-center transition-colors mb-6 ${
-              theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'
-            }`}
-          >
-            ← Back to Home
-          </Link>
-          <h1 className={`text-5xl md:text-6xl font-bold mb-4 ${
-            theme === 'dark' ? 'text-white' : 'text-black'
-          }`}>Meet the Team</h1>
-          <p className={`text-lg max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-white/60' : 'text-black/60'
-          }`}>
-            we&apos;re a small but dedicated team building the future of web browsing.
-          </p>
-        </motion.div>
+    <PageShell>
+      <PageHeader
+        eyebrow="Project / Team"
+        title="Team"
+        intro="Solar is built by a small group in the open. Everyone listed here has code in the repository -- including the tooling, which we list rather than hide."
+        meta={[
+          { label: 'People', value: `${team.length}` },
+          { label: 'Robots', value: `${robots.length}` },
+        ]}
+      />
 
-        {/* Team Members */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
-        >
+      <Section eyebrow="001 / People" title="Who builds it">
+        <ul>
           {team.map((member, i) => (
-            <motion.a
-              key={i}
-              href={member.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
-              className={`border rounded-lg p-8 transition-all text-center group cursor-pointer ${
-                theme === 'dark' 
-                  ? 'bg-white/5 border-white/10 hover:bg-white/10' 
-                  : 'bg-[#F0EBE3] border-black/10 hover:bg-[#E4DED4]'
+            <li key={member.name} className={i !== 0 ? 'border-t border-line' : ''}>
+              <Link
+                href={member.github}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-6 py-6"
+              >
+                <Image
+                  src={member.avatar}
+                  alt=""
+                  width={72}
+                  height={72}
+                  unoptimized
+                  className="h-16 w-16 shrink-0 rounded-full object-cover md:h-[72px] md:w-[72px]"
+                />
+                <span className="flex-1">
+                  <span className="block text-2xl font-semibold tracking-tight md:text-3xl">
+                    {member.name}
+                  </span>
+                  <span className="mt-1 block text-sm text-fg-2">{member.role}</span>
+                </span>
+                <span
+                  aria-hidden
+                  className="text-fg-3 transition-all duration-200 group-hover:translate-x-1 group-hover:text-fg"
+                >
+                  ↗
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section eyebrow="002 / Robots" title="What helped">
+        <ul>
+          {robots.map((robot, i) => (
+            <li
+              key={robot.name}
+              className={`flex items-start gap-6 py-6 ${
+                i !== 0 ? 'border-t border-line' : ''
               }`}
             >
-              <div className="mb-4">
-                <img 
-                  src={member.avatar} 
-                  alt={member.name}
-                  className={`w-32 h-32 rounded-full mx-auto object-cover border-4 transition-all ${
-                    theme === 'dark' 
-                      ? 'border-white/10 group-hover:border-white/20' 
-                      : 'border-black/10 group-hover:border-black/20'
-                  }`}
-                />
+              {/* A typographic monogram rather than a borrowed logo. */}
+              <span
+                aria-hidden
+                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-line-strong font-mono text-lg text-fg-3 md:h-[72px] md:w-[72px]"
+              >
+                {robot.name.slice(0, 2).toUpperCase()}
+              </span>
+
+              <div className="flex-1">
+                <div className="flex flex-wrap items-baseline gap-x-3">
+                  <Link
+                    href={robot.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group text-2xl font-semibold tracking-tight transition-colors duration-200 hover:text-accent md:text-3xl"
+                  >
+                    {robot.name}
+                    <span
+                      aria-hidden
+                      className="ml-2 inline-block text-fg-3 transition-transform duration-200 group-hover:translate-x-1"
+                    >
+                      ↗
+                    </span>
+                  </Link>
+                  <span className="label">by {robot.maker}</span>
+                </div>
+
+                <p className="mt-1 text-sm text-fg-2">{robot.role}</p>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-fg-2">
+                  {robot.note}
+                </p>
+
+                <Link
+                  href="/letter"
+                  target="_blank"
+                  className="group mt-6 inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-accent transition-opacity duration-200 hover:opacity-70"
+                >
+                  Message from the developer
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </Link>
               </div>
-              <h3 className={`text-2xl font-semibold mb-1 transition-colors ${
-                theme === 'dark' ? 'text-white group-hover:text-purple-300' : 'text-black group-hover:text-purple-500'
-              }`}>{member.name}</h3>
-              <div className={theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}>{member.role}</div>
-            </motion.a>
+            </li>
           ))}
-        </motion.div>
+        </ul>
+      </Section>
 
-        {/* Community CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className={`text-center mt-16 pt-12 border-t ${
-            theme === 'dark' ? 'border-white/10' : 'border-black/10'
-          }`}
+      <Section eyebrow="003 / Contributing" title="Join in">
+        <p className="max-w-xl text-sm leading-relaxed text-fg-2 md:text-base">
+          The engine, the runtime and this site are all public. Issues, patches
+          and hard questions are all welcome -- there is no contributor agreement
+          to sign and no gatekeeping beyond code review.
+        </p>
+        <Link
+          href="https://github.com/solarbrowser"
+          target="_blank"
+          rel="noreferrer"
+          className="group mt-8 inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-accent transition-opacity duration-200 hover:opacity-70"
         >
-          <h2 className={`text-3xl font-bold mb-4 ${
-            theme === 'dark' ? 'text-white' : 'text-black'
-          }`}>Join Our Community</h2>
-          <p className={`mb-6 ${
-            theme === 'dark' ? 'text-white/60' : 'text-black/60'
-          }`}>
-            Be part of Solar&apos;s journey from the beginning
-          </p>
-          <button
-            onClick={() => setIsWaitlistOpen(true)}
-            className={`group relative px-8 py-4 font-semibold rounded-full overflow-hidden transition-all hover:scale-105 ${
-              theme === 'dark' ? 'bg-[#FAF9F7] text-black' : 'bg-black text-white'
-            }`}
+          Solar on GitHub
+          <span
+            aria-hidden
+            className="transition-transform duration-200 group-hover:translate-x-1"
           >
-            <span className="relative z-10">Join Waitlist for Early Access</span>
-            <div className={`absolute inset-0 scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
-              theme === 'dark' ? 'bg-black/10' : 'bg-white/10'
-            }`}></div>
-          </button>
-        </motion.div>
-      </div>
+            ↗
+          </span>
+        </Link>
+      </Section>
 
-      <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
-    </div>
+      <CtaBlock />
+    </PageShell>
   );
 }
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,53 @@
+# Solar Browser
+
+> A web browser built from the ground up on today's standards, running on its
+> own rendering engine and on Quanta, a JavaScript engine written from scratch.
+> Open source, developed in public, and not yet released.
+
+## Status
+
+Solar has not shipped a build. Nothing on the site is downloadable. Quanta, the
+JavaScript engine, is the part that exists today: a register-based bytecode VM
+of roughly 70,000 lines with a non-moving garbage collector, passing about 80%
+of test262 overall and ~98.6% of the language and built-ins suite. The rendering
+engine has not been started.
+
+Anything described on the site as a capability is a design target rather than a
+measured result, and the site says so. Do not repeat feature descriptions as
+shipped facts.
+
+## What Solar collects
+
+One anonymised ID, used only to derive two figures: searches per day and unique
+users. It can be switched off in settings. Nothing else is collected, and
+nothing is sold or shared. Earlier versions of this site claimed "no telemetry";
+that claim was wrong and has been corrected.
+
+## AI involvement
+
+A large share of Quanta's code was written with Claude, under an architecture
+designed and directed by the project lead. This is stated openly on the site
+rather than hidden. The full account is at /letter.
+
+## Pages
+
+- [Home](https://browser.solar/): the argument for why Solar exists.
+- [Features](https://browser.solar/features): the seven capabilities being built, as specification.
+- [Roadmap](https://browser.solar/roadmap): phases and intended dates.
+- [Download](https://browser.solar/download): platform targets. Nothing downloadable yet.
+- [Team](https://browser.solar/team): people, and the tooling that helped.
+- [Message from the developer](https://browser.solar/letter): first-person account of how Solar was built and how much of it was AI-written.
+- [Support us](https://browser.solar/support): how the project is funded.
+- [Contact](https://browser.solar/contact): email and issue tracker.
+- [Docs](https://browser.solar/docs): placeholder. Quanta's own reference is at https://quanta.js.org/docen/
+
+## Legal
+
+- [Privacy policy](https://browser.solar/privacy-policy)
+- [Terms of use](https://browser.solar/terms-of-use)
+- [Cookie policy](https://browser.solar/cookie-policy)
+
+## Elsewhere
+
+- Source: https://github.com/solarbrowser
+- Quanta engine: https://quanta.js.org/

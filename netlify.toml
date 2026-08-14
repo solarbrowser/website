@@ -1,0 +1,85 @@
+# next.config.js sets output: 'export', so `next build` writes a complete
+# static site to out/ and every route is prerendered -- there is no server
+# component to run at request time.
+#
+# That means:
+#   * publish is out/, not .next/ (.next holds build artefacts, not a site)
+#   * @netlify/plugin-nextjs is not needed; it exists to run SSR/ISR routes,
+#     and with a pure export it has nothing to do
+#
+# The headers and redirects below only apply to whatever directory is
+# published, which is why the publish path mattered.
+[build]
+  command = "npm run build"
+  publish = "out"
+
+# Quanta has its own site. The old /quanta page duplicated it, so anyone
+# holding that URL is sent to the real one instead of a 404.
+[[redirects]]
+  from = "/quanta"
+  to = "https://quanta.js.org/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quanta/*"
+  to = "https://quanta.js.org/:splat"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# Caching
+#
+# Static export means these headers are the only caching control there is --
+# there is no server to set them per request.
+# ---------------------------------------------------------------------------
+
+# Content-hashed by the build, so it can never go stale under a fixed name.
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Fonts are versioned by hand. A year is safe because changing a font means
+# changing its filename.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+# Icons and the social card share a fixed name, so they get a week rather than
+# a year: long enough to matter, short enough that a redesign lands.
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/icon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/apple-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/og.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/logo.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# HTML must revalidate, otherwise a deploy does not reach anyone who has
+# already visited.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

@@ -3,13 +3,13 @@
 import { useTheme, type Mode } from '@/context/ThemeContext';
 
 const modes: { value: Mode; label: string }[] = [
-  { value: 'auto', label: 'Auto' },
+  { value: 'system', label: 'System' },
   { value: 'light', label: 'Light' },
   { value: 'dark', label: 'Dark' },
 ];
 
 /**
- * Three flat words, no chrome. Auto is the default and follows local time;
+ * Three flat words, no chrome. System is the default and follows the device preference;
  * the other two pin the palette.
  */
 export default function ThemeSwitch({ className = '' }: { className?: string }) {

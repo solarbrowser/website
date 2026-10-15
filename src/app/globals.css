@@ -54,18 +54,13 @@
 /* ---------------------------------------------------------------------------
    Palettes
 
-   Three modes: auto (default), light, dark.
+   Three modes: system (default, follows the device), light, dark.
 
-   In auto, the palette follows the visitor's local clock through four flat
-   bands. There are no gradients anywhere — each band is a solid ground, a
-   solid foreground and one accent. Every combination below was checked for
-   contrast: body text lands between 14:1 and 17:1, and each accent clears
-   4.5:1 against its own ground so it can be used on small text.
+   Dark is the base; light overrides it. There are no gradients anywhere.
 --------------------------------------------------------------------------- */
 
 :root,
-[data-mode='auto'][data-band='night'],
-[data-mode='dark'] {
+[data-theme='dark'] {
   --bg-rgb: 11 11 13;
   --fg-rgb: 239 238 242;
   --accent: #ff6a3d;
@@ -75,28 +70,7 @@
   --line-strong: rgba(239, 238, 242, 0.3);
 }
 
-[data-mode='auto'][data-band='dusk'] {
-  --bg-rgb: 36 22 20;
-  --fg-rgb: 242 227 217;
-  --accent: #ff7a45;
-  --fg-2: rgba(242, 227, 217, 0.68);
-  --fg-3: rgba(242, 227, 217, 0.55);
-  --line: rgba(242, 227, 217, 0.14);
-  --line-strong: rgba(242, 227, 217, 0.3);
-}
-
-[data-mode='auto'][data-band='dawn'] {
-  --bg-rgb: 232 233 230;
-  --fg-rgb: 22 23 26;
-  --accent: #b23c15;
-  --fg-2: rgba(22, 23, 26, 0.72);
-  --fg-3: rgba(22, 23, 26, 0.62);
-  --line: rgba(22, 23, 26, 0.14);
-  --line-strong: rgba(22, 23, 26, 0.3);
-}
-
-[data-mode='auto'][data-band='day'],
-[data-mode='light'] {
+[data-theme='light'] {
   --bg-rgb: 242 239 231;
   --fg-rgb: 19 18 16;
   --accent: #b23c15;
@@ -134,8 +108,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Crossing a time band should feel like light changing, not like a reload. */
-  transition: background-color 1.2s ease, color 1.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {

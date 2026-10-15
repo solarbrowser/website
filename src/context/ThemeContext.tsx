@@ -8,15 +8,12 @@ import {
   useState,
 } from 'react';
 
-export type Mode = 'auto' | 'light' | 'dark';
-export type Band = 'dawn' | 'day' | 'dusk' | 'night';
+export type Mode = 'system' | 'light' | 'dark';
 
 interface ThemeContextType {
   mode: Mode;
   setMode: (mode: Mode) => void;
-  /** Which time band auto is currently showing. */
-  band: Band;
-  /** Resolved light/dark, kept for components that only care about polarity. */
+  /** Resolved light/dark, after applying the device preference. */
   theme: 'light' | 'dark';
 }
 
@@ -24,63 +21,35 @@ const MODE_KEY = 'solar-mode';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function bandForHour(hour: number): Band {
-  if (hour >= 5 && hour < 9) return 'dawn';
-  if (hour >= 9 && hour < 17) return 'day';
-  if (hour >= 17 && hour < 21) return 'dusk';
-  return 'night';
-}
-
-function polarity(mode: Mode, band: Band): 'light' | 'dark' {
-  if (mode === 'light') return 'light';
-  if (mode === 'dark') return 'dark';
-  return band === 'dawn' || band === 'day' ? 'light' : 'dark';
-}
-
 /**
- * Runs in <head> before first paint. The markup stays server-rendered while
- * the stored mode and the visitor's local hour are applied without a flash.
- * Kept deliberately terse -- it is inlined into every page.
+ * Runs in <head> before first paint so there is no flash. System mode follows
+ * the device's prefers-color-scheme; an old stored 'auto' counts as system.
  */
-export const themeInitScript = `(function(){try{var m=localStorage.getItem('${MODE_KEY}');if(m!=='light'&&m!=='dark'&&m!=='auto'){m='auto'}var h=new Date().getHours();var b=h>=5&&h<9?'dawn':h>=9&&h<17?'day':h>=17&&h<21?'dusk':'night';var d=document.documentElement;d.setAttribute('data-mode',m);d.setAttribute('data-band',b);d.setAttribute('data-theme',m==='light'?'light':m==='dark'?'dark':(b==='dawn'||b==='day'?'light':'dark'))}catch(e){}})();`;
+export const themeInitScript = `(function(){try{var m=localStorage.getItem('${MODE_KEY}');if(m!=='light'&&m!=='dark'){m='system'}var d=document.documentElement;d.setAttribute('data-mode',m);d.setAttribute('data-theme',m==='system'?(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):m)}catch(e){}})();`;
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setModeState] = useState<Mode>('auto');
-  const [band, setBand] = useState<Band>('night');
-
-  const apply = useCallback((nextMode: Mode, nextBand: Band) => {
-    const root = document.documentElement;
-    root.setAttribute('data-mode', nextMode);
-    root.setAttribute('data-band', nextBand);
-    root.setAttribute('data-theme', polarity(nextMode, nextBand));
-  }, []);
-
-  // Adopt whatever the pre-paint script decided, then keep the band honest as
-  // the clock crosses a boundary while the tab stays open.
-  useEffect(() => {
-    const root = document.documentElement;
-    const storedMode = root.getAttribute('data-mode') as Mode | null;
-    const initialMode: Mode =
-      storedMode === 'light' || storedMode === 'dark' || storedMode === 'auto'
-        ? storedMode
-        : 'auto';
-
-    setModeState(initialMode);
-    setBand(bandForHour(new Date().getHours()));
-
-    const tick = window.setInterval(() => {
-      setBand((prev) => {
-        const next = bandForHour(new Date().getHours());
-        return next === prev ? prev : next;
-      });
-    }, 60_000);
-
-    return () => window.clearInterval(tick);
-  }, []);
+  const [mode, setModeState] = useState<Mode>('system');
+  const [systemLight, setSystemLight] = useState(false);
 
   useEffect(() => {
-    apply(mode, band);
-  }, [apply, mode, band]);
+    const stored = document.documentElement.getAttribute('data-mode');
+    setModeState(stored === 'light' || stored === 'dark' ? stored : 'system');
+
+    const query = window.matchMedia('(prefers-color-scheme: light)');
+    setSystemLight(query.matches);
+    const onChange = (e: MediaQueryListEvent) => setSystemLight(e.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+
+  const theme: 'light' | 'dark' =
+    mode === 'system' ? (systemLight ? 'light' : 'dark') : mode;
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-mode', mode);
+    root.setAttribute('data-theme', theme);
+  }, [mode, theme]);
 
   const setMode = useCallback((next: Mode) => {
     setModeState(next);
@@ -92,9 +61,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ThemeContext.Provider
-      value={{ mode, setMode, band, theme: polarity(mode, band) }}
-    >
+    <ThemeContext.Provider value={{ mode, setMode, theme }}>
       {children}
     </ThemeContext.Provider>
   );

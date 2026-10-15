@@ -38,11 +38,11 @@ export default function CookiePolicyPage() {
           transmitted to us
         </li>
         <li>
-          <strong>Purpose:</strong> to remember whether you chose Auto, Light or
+          <strong>Purpose:</strong> to remember whether you chose System, Light or
           Dark
         </li>
         <li>
-          <strong>Value:</strong> one of <code>auto</code>, <code>light</code>{' '}
+          <strong>Value:</strong> one of <code>system</code>, <code>light</code>{' '}
           or <code>dark</code>
         </li>
         <li>
@@ -50,8 +50,8 @@ export default function CookiePolicyPage() {
         </li>
         <li>
           <strong>Written:</strong> only when you pick a mode. In the default
-          Auto mode, the palette is chosen from your device clock and nothing is
-          stored at all.
+          System mode, the palette follows your device&apos;s light or dark setting
+          and nothing is stored at all.
         </li>
       </ul>
 

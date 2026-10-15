@@ -73,8 +73,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // The auto palette follows the clock, so the browser chrome colour can only
-  // follow the coarse light/dark split. These are the day and night grounds.
+  // These are the light and dark grounds.
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f2efe7" },
     { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
@@ -89,15 +88,14 @@ export default function RootLayout({
 }>) {
   return (
     // suppressHydrationWarning applies to this element only, not its children.
-    // themeInitScript rewrites data-mode/data-band/data-theme before React
+    // themeInitScript rewrites data-mode/data-theme before React
     // hydrates -- that is the whole point, it is what prevents the flash -- so
     // the server values below are always a placeholder the client corrects.
     // Without this, React reports a mismatch on every visit outside the
-    // default band. Hydration warnings anywhere else are still reported.
+    // default theme. Hydration warnings anywhere else are still reported.
     <html
       lang="en"
-      data-mode="auto"
-      data-band="night"
+      data-mode="system"
       data-theme="dark"
       suppressHydrationWarning
     >

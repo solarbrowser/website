@@ -16,20 +16,31 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [message, setMessage] = useState('');
   const [captcha, setCaptcha] = useState('');
   const [nums, setNums] = useState({ a: 0, b: 0 });
+  const [token, setToken] = useState('');
+  const [website, setWebsite] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
+  const loadCaptcha = async () => {
+    try {
+      const res = await fetch('/api/waitlist');
+      const data = await res.json();
+      setNums({ a: data.a, b: data.b });
+      setToken(data.token);
+    } catch {
+      setStatus('error');
+      setMessage('Could not load the form. Check your connection.');
+    }
+  };
+
   useEffect(() => {
     if (!isOpen) return;
 
     openerRef.current = document.activeElement as HTMLElement;
-    setNums({
-      a: Math.floor(Math.random() * 9) + 1,
-      b: Math.floor(Math.random() * 9) + 1,
-    });
+    loadCaptcha();
     setCaptcha('');
     setEmail('');
     setStatus('idle');
@@ -87,24 +98,23 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
       return;
     }
 
-    if (parseInt(captcha, 10) !== nums.a + nums.b) {
-      setStatus('error');
-      setMessage('That answer is not right. Try again.');
-      return;
-    }
-
     setStatus('loading');
 
     try {
-      const response = await fetch('https://formspree.io/f/xdkzvrwj', {
+      const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, answer: captcha, token, website }),
       });
 
       if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
         setStatus('error');
-        setMessage('Something went wrong. Please try again.');
+        setMessage(data.error ?? 'Something went wrong. Please try again.');
+        if (response.status === 400) {
+          setCaptcha('');
+          loadCaptcha();
+        }
         return;
       }
 
@@ -202,6 +212,17 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   className="mb-7 w-full border-b border-line-strong bg-transparent pb-3 text-lg text-fg outline-none transition-colors duration-200 placeholder:text-fg-3 focus:border-accent"
+                />
+
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
                 />
 
                 <label htmlFor="waitlist-captcha" className="label mb-3 block">

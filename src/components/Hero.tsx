@@ -4,20 +4,13 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 
-const bandCopy: Record<string, string> = {
-  dawn: 'Dawn palette',
-  day: 'Day palette',
-  dusk: 'Dusk palette',
-  night: 'Night palette',
-};
-
 /**
  * A type specimen, not a hero card: one word at full width, the rest of the
  * information set small and placed rather than boxed. No borders, no panels,
  * no fills -- hierarchy comes only from size and position.
  */
 export default function Hero() {
-  const { mode, band } = useTheme();
+  const { mode, theme } = useTheme();
   const reduceMotion = useReducedMotion();
   const [clock, setClock] = useState<string | null>(null);
 
@@ -73,9 +66,7 @@ export default function Hero() {
             {clock ? `${clock} local` : 'Local time'}
           </p>
           <p className="label">
-            {mode === 'auto'
-              ? bandCopy[band]
-              : `${mode === 'light' ? 'Light' : 'Dark'} palette -- pinned`}
+            {`${theme === 'light' ? 'Light' : 'Dark'} palette${mode === 'system' ? ' -- device' : ' -- pinned'}`}
           </p>
         </motion.div>
       </div>

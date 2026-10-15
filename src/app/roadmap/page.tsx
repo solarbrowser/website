@@ -12,6 +12,8 @@ const milestones: {
   period: string;
   status: Status;
   items: string[];
+  /** Items inside an active phase that are already finished. */
+  doneItems?: string[];
 }[] = [
   {
     phase: 'Phase 1',
@@ -43,6 +45,7 @@ const milestones: {
     period: 'H2 2025 -- present',
     status: 'active',
     items: ['JavaScript engine development', 'Layout engine development'],
+    doneItems: ['JavaScript engine development'],
   },
   {
     phase: 'Phase 4',
@@ -140,7 +143,11 @@ export default function RoadmapPage() {
                 </div>
 
                 <ul className="md:col-span-8">
-                  {milestone.items.map((item) => (
+                  {milestone.items.map((item) => {
+                    const isDone =
+                      milestone.status === 'done' ||
+                      milestone.doneItems?.includes(item);
+                    return (
                     <li
                       key={item}
                       className="flex items-baseline gap-4 border-t border-line py-4 first:border-t-0 md:first:border-t"
@@ -148,10 +155,10 @@ export default function RoadmapPage() {
                       <span
                         aria-hidden
                         className={
-                          milestone.status === 'done' ? 'text-accent' : 'text-fg-3'
+                          isDone ? 'text-accent' : 'text-fg-3'
                         }
                       >
-                        {milestone.status === 'done' ? '✓' : '--'}
+                        {isDone ? '✓' : '--'}
                       </span>
                       <span
                         className={`text-sm leading-relaxed md:text-base ${
@@ -161,7 +168,8 @@ export default function RoadmapPage() {
                         {item}
                       </span>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </Rise>
             </li>

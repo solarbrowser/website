@@ -49,12 +49,13 @@ export default function PrivacyPolicyPage() {
           is downloadable.
         </li>
         <li>
-          <strong>Where it goes:</strong> the form submits to{' '}
-          <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noreferrer">
-            Formspree
+          <strong>Where it goes:</strong> the form submits to a small function on this site, which stores the
+          address in Netlify Blobs, storage provided by our host,{' '}
+          <a href="https://www.netlify.com/privacy/" target="_blank" rel="noreferrer">
+            Netlify
           </a>
-          , a third-party form service that receives and stores the submission
-          on our behalf, under its own privacy policy.
+          . To limit abuse we keep a hashed form of your IP address for up to an
+          hour; the raw address is never stored.
         </li>
         <li>
           <strong>How long:</strong> until the launch email goes out, or until
